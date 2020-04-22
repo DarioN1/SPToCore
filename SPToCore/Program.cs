@@ -3,16 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace SPToCore
 {
-    class Program
+    static class Program
     {
         public static string P_ConnectionString = "Data Source=DN1;Initial Catalog=EMGERP;Persist Security Info=True;User ID=EMGERP_User;Password=emgerp;Connection Timeout=360";
         public static string P_NameSpace = "EMGERP_WebApi";
         public static string P_Schema = "*";
         public static bool P_ExcludeSystemObject = true;
+        public static string P_OutPutFolder = "";
 
         public static List<SpException> ExceptionList = new List<SpException>();
 
@@ -32,6 +35,11 @@ namespace SPToCore
             int i = 1;
             string _schema = "";
             string _sp = "";
+
+            string fileName = "";
+            string fileFolder = "";
+            string fileContent = "";
+
             foreach (DataRow r in dt_SpList.Rows) {
                 
                 _schema = r["ROUTINE_SCHEMA"].ToString();
@@ -40,7 +48,13 @@ namespace SPToCore
                 dt_SpParam = Get_StoreProcedure_Param(_schema, _sp);
                 dt_SpResult = Get_StoreProcedure_Result(_schema, _sp);
 
-                Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - PROCESSING: {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
+                Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
+
+                fileName = $"{FirstCharToUpper(_sp)}Result.cs";
+
+                //fileFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Output");
+
+                //File.WriteAllText(${fileFolder}fileName, "");
 
                 i++;
             }
@@ -52,6 +66,7 @@ namespace SPToCore
             foreach (var e in ExceptionList)
             {
                 Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 3 - EXCEPTION {i} / {ExceptionList.Count}: {e.StoreProcedure} - {e.Message}");
+                i++;
             }
             
             
@@ -154,6 +169,15 @@ namespace SPToCore
                 return dtResult;
             }
         }
+
+
+        public static string FirstCharToUpper(this string input) =>
+        input switch
+        {
+            null => throw new ArgumentNullException(nameof(input)),
+            "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+            _ => input.First().ToString().ToUpper() + input.Substring(1)
+        };
 
     }
 }
