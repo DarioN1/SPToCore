@@ -5,7 +5,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace SPToCore
 {
@@ -15,7 +17,7 @@ namespace SPToCore
         public static string P_NameSpace = "EMGERP_WebApi";
         public static string P_Schema = "*";
         public static bool P_ExcludeSystemObject = true;
-        public static string P_OutPutFolder = "";
+        public static string P_OutPutFolder = @"C:\TEMP\SPtoCore";
 
         public static List<SpException> ExceptionList = new List<SpException>();
 
@@ -25,12 +27,12 @@ namespace SPToCore
             var dt_SpParam = new DataTable();
             var dt_SpResult = new DataTable();
 
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 1 - GET STORED PROCEDURE LIST");                       
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 1 - GET STORED PROCEDURE LIST");                       
             
             dt_SpList = Get_StoreProcedure_List();
 
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - PROCESS STORED PROCEDURE");
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - Total Stored Procedure: {dt_SpList.Rows.Count}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - PROCESS STORED PROCEDURE");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - Total Stored Procedure: {dt_SpList.Rows.Count}");
 
             int i = 1;
             string _schema = "";
@@ -48,30 +50,23 @@ namespace SPToCore
                 dt_SpParam = Get_StoreProcedure_Param(_schema, _sp);
                 dt_SpResult = Get_StoreProcedure_Result(_schema, _sp);
 
-                Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
+                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
 
                 fileName = $"{FirstCharToUpper(_sp)}Result.cs";
-
-                //fileFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Output");
-
-                //File.WriteAllText(${fileFolder}fileName, "");
+                
+                File.WriteAllText(Path.Combine(P_OutPutFolder, fileName), "Hello World!!!");
 
                 i++;
             }
 
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 3 - PRINTING EXCEPTIONS");
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 3 - Total Exceptions: {ExceptionList.Count}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
 
-            i = 1;            
-            foreach (var e in ExceptionList)
-            {
-                Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 3 - EXCEPTION {i} / {ExceptionList.Count}: {e.StoreProcedure} - {e.Message}");
-                i++;
+            if (ExceptionList.Count > 0) {
+                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} EXCEPTION FOUND! Please check SPToCore_log.txt");
+                WriteException();
             }
             
             
-
-            Console.WriteLine($"{DateTime.Today.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
         }
 
         private static DataTable Get_StoreProcedure_List()
@@ -170,6 +165,21 @@ namespace SPToCore
             }
         }
 
+        private static void WriteException() {
+            StringBuilder sb = new StringBuilder();
+
+            int i = 1;
+            try{
+                foreach (var e in ExceptionList) {
+                    sb.AppendLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} - EXCEPTION {i} / {ExceptionList.Count}: {e.StoreProcedure} - {e.Message}");
+                    i++;
+                }
+                File.WriteAllText(Path.Combine(P_OutPutFolder, "spToCore_log.txt"),sb.ToString());
+            }
+            catch (Exception e) {
+                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} ERROR!!! --> {e.Message}");
+            }
+        }
 
         public static string FirstCharToUpper(this string input) =>
         input switch
