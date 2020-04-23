@@ -22,8 +22,24 @@ namespace SPToCore
 
         public static List<SpException> ExceptionList = new List<SpException>();
 
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
+            
+            using (SPToCoreContext sp = new SPToCoreContext()) {
+
+                var res = await sp.Material_GETAsync(1, 14494);
+
+                foreach (var r in res)
+                {
+                    Console.WriteLine(r.Code);
+                }
+
+            }
+            
+
+            return;
+            
+
             var dt_SpList = new DataTable();
             var dt_SpParam = new DataTable();
             var dt_SpResult = new DataTable();
@@ -107,18 +123,18 @@ namespace SPToCore
 
             string name = "";
             string type = "";
-            string isNullable = "";
-            string isOutput = "";
+            bool isNullable;
+            bool isOutput;
 
             foreach (DataRow r in _dt.Rows)
             {
 
-                name = type = r["Parameter_name"].ToString().Replace("@","");
+                name = r["Parameter_name"].ToString().Replace("@","");
                 type = r["Type"].ToString();
-                isNullable = r["is_Output"].ToString();
-                isOutput = r["is_nullable"].ToString();
+                isNullable = (bool)r["is_nullable"];
+                isOutput = (bool)r["is_Output"];
 
-                sb.Append($"{(isOutput == "1" ? "ref " : "")}{SP_GetType(type, isNullable)} {name}, ");
+                sb.Append($"{(isOutput ? "ref " : "")}{SP_GetType(type, isNullable)} {name}, ");
             }
             string res = sb.ToString();
             if (res.Length > 0)
@@ -130,6 +146,12 @@ namespace SPToCore
 
         private static string SPToCore_GenerateResult(string _sp, DataTable _dt)
         {
+            
+            if (_sp == "Material_GET") {
+                int i = 0;
+            }
+            
+
             string template = $@"                    
                         public class {_sp}Result  
                         {{
@@ -141,13 +163,13 @@ namespace SPToCore
 
             string name = "";
             string type = "";
-            string isNullable = "";
+            bool isNullable;
 
             foreach (DataRow r in _dt.Rows) {
 
-                name = type = r["name"].ToString();
+                name = r["name"].ToString();
                 type = r["system_type_name"].ToString();
-                isNullable = r["system_type_name"].ToString();
+                isNullable = (bool)r["is_nullable"];
 
                 sb.AppendLine($"public {SP_GetType(type,isNullable)} {name} {{get; set;}}");
             }
@@ -155,28 +177,28 @@ namespace SPToCore
             return template.Replace("[@0]", sb.ToString());            
         }
 
-        private static string SP_GetType(string type,string isNullable)
+        private static string SP_GetType(string type,bool isNullable)
         {
             type = type.ToLower().Trim();
 
             if (type == "int")
-                return "int" + (isNullable == "1" ? "?" : "");
-            else if (type == "decimal")
-                return "decimal" + (isNullable == "1" ? "?" : "");
+                return "int" + (isNullable ? "?" : "");
+            else if (type.IndexOf("decimal") > -1)
+                return "decimal" + (isNullable ? "?" : "");
             else if (type.IndexOf("nvarchar") > -1)
                 return "string";
             else if (type.IndexOf("varchar") > -1)
                 return "string";
             else if (type.IndexOf("datetimeoffset") > -1)
-                return "DateTimeOffset" + (isNullable == "1" ? "?" : "");
+                return "DateTimeOffset" + (isNullable ? "?" : "");
             else if (type.IndexOf("datetime") > -1)
-                return "DateTime" + (isNullable == "1" ? "?" : "");
+                return "DateTime" + (isNullable ? "?" : "");
             else if (type.IndexOf("smalldatetime") > -1)
-                return "DateTime" + (isNullable == "1" ? "?" : "");
+                return "DateTime" + (isNullable ? "?" : "");
             else if (type == "decimal")
-                return "decimal" + (isNullable == "1" ? "?" : "");
+                return "decimal" + (isNullable ? "?" : "");
             else if (type == "bit")
-                return "boolean" + (isNullable == "1" ? "?" : "");
+                return "bool" + (isNullable ? "?" : "");
             else
                 return "WTF?!";                        
 

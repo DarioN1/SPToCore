@@ -4,11 +4,69 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SPToCore.Test;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SPToCore.Model
 {
-    class SPToCoreContext
+    public partial class SPToCoreContext : DbContext
     {
-        
+        public SPToCoreContext()
+        {
+        }
+
+        public SPToCoreContext(DbContextOptions<EMGERPContext> options)
+            : base(options)
+        {
+        }
+
+       
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
+        {  
+            if (!optionsBuilder.IsConfigured)  
+            {
+                optionsBuilder.UseSqlServer("Data Source=DN1;Initial Catalog=EMGERP;Persist Security Info=True;User ID=EMGERP_User;Password=emgerp;Connection Timeout=360");
+            }  
+        }  
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            // [Asma Khalid]: Regster store procedure custom object.  
+            modelBuilder.Query<Material_GET>();            
+        }
+
+        #region 
+
+        /// <summary>  
+        /// Get Material detail by idMaterial.  
+        /// </summary>  
+        /// <param name="idMaterial">idMaterial parameter</param>  
+        /// <returns>Returns - Material detail by idMaterial</returns>  
+        public async Task<List<Material_GET>> Material_GETAsync(int idUser, int idMaterial)
+        {
+            // Initialization.  
+            List<Material_GET> lst = new List<Material_GET>();
+
+            try
+            {                
+                // Processing.  
+                FormattableString sqlQuery = $@"EXEC [dbo].[Material_GET] 
+                                                {idUser},
+                                                {idMaterial}
+                                                ";
+
+                lst = await this.Query<Material_GET>().FromSqlInterpolated(sqlQuery).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            // Info.  
+            return lst;
+        }
+
+        #endregion
     }
 }
