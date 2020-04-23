@@ -42,8 +42,9 @@ namespace SPToCore
             string fileName = "";
             string fileFolder = "";
             string fileContent = "";
-            
-            StringBuilder sResultClass = new StringBuilder();
+
+            StringBuilder sResultMethods = new StringBuilder();
+            StringBuilder sResultClasses = new StringBuilder();
 
             string template = $@"
                                 using System;  
@@ -53,7 +54,10 @@ namespace SPToCore
   
                                 namespace {P_NameSpace}.{P_OutPutSolutionFolder}
                                 {{
-                                #Region Result
+                                #Region Methods
+                                [@0]
+                                #EndRegion
+                                #Region Results
                                 [@1]
                                 #EndRegion
                                 }}
@@ -69,12 +73,14 @@ namespace SPToCore
 
                 Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
 
-                sResultClass.AppendLine(SPToCore_GenerateResult(_sp, dt_SpResult));
+                sResultMethods.AppendLine(SPToCore_GenerateMethod(_sp, dt_SpParam));
+                sResultClasses.AppendLine(SPToCore_GenerateResult(_sp, dt_SpResult));
 
                 i++;
             }
 
-            template = template.Replace("[@1]", sResultClass.ToString());
+            template = template.Replace("[@0]", sResultMethods.ToString());
+            template = template.Replace("[@1]", sResultClasses.ToString());
 
             File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContext.cs"), template);
 
@@ -86,6 +92,40 @@ namespace SPToCore
             }
             
             
+        }
+
+        private static string SPToCore_GenerateMethod(string _sp, DataTable _dt)
+        {
+            string template = $@"                    
+                        public object {_sp}([@0])  
+                        {{
+                            return null;
+                        }}  
+            ";
+
+            StringBuilder sb = new StringBuilder();
+
+            string name = "";
+            string type = "";
+            string isNullable = "";
+            string isOutput = "";
+
+            foreach (DataRow r in _dt.Rows)
+            {
+
+                name = type = r["Parameter_name"].ToString().Replace("@","");
+                type = r["Type"].ToString();
+                isNullable = r["is_Output"].ToString();
+                isOutput = r["is_nullable"].ToString();
+
+                sb.Append($"{(isOutput == "1" ? "ref " : "")}{SP_GetType(type, isNullable)} {name}, ");
+            }
+            string res = sb.ToString();
+            if (res.Length > 0)
+                res = res.Remove(res.Length - 2, 2);
+
+
+            return template.Replace("[@0]",res);
         }
 
         private static string SPToCore_GenerateResult(string _sp, DataTable _dt)
@@ -194,7 +234,9 @@ namespace SPToCore
                                    'Param_order'  = parameter_id,  
                                    'Collation'   = convert(sysname, 
                                                    case when system_type_id in (35, 99, 167, 175, 231, 239)  
-                                                   then ServerProperty('collation') end)  
+                                                   then ServerProperty('collation') end),
+                                  is_Output,
+	                              is_nullable
                                   from sys.parameters where object_id = object_id('{schema}.{sp}')
                                   ORDER BY parameter_id
                                 ";
