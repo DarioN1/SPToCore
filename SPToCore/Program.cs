@@ -17,7 +17,8 @@ namespace SPToCore
         public static string P_NameSpace = "EMGERP_WebApi";
         public static string P_Schema = "*";
         public static bool P_ExcludeSystemObject = true;
-        public static string P_OutPutFolder = @"C:\TEMP\SPtoCore";
+        public static string P_OutPutSolutionFolder = @"Model";
+        public static string P_OutPutPhysicalFolder = @"C:\TEMP\SPtoCore";
 
         public static List<SpException> ExceptionList = new List<SpException>();
 
@@ -41,6 +42,22 @@ namespace SPToCore
             string fileName = "";
             string fileFolder = "";
             string fileContent = "";
+            
+            StringBuilder sResultClass = new StringBuilder();
+
+            string template = $@"
+                                using System;  
+                                using System.Collections.Generic;  
+                                using System.Linq;  
+                                using System.Threading.Tasks;  
+  
+                                namespace {P_NameSpace}.{P_OutPutSolutionFolder}
+                                {{
+                                #Region Result
+                                [@1]
+                                #EndRegion
+                                }}
+                ";
 
             foreach (DataRow r in dt_SpList.Rows) {
                 
@@ -52,12 +69,14 @@ namespace SPToCore
 
                 Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 2 - {i} / {dt_SpList.Rows.Count} ==> \"{r["ROUTINE_NAME"]}\" (Parameters: {dt_SpParam.Rows.Count}, OutputColumns: {dt_SpResult.Rows.Count}");
 
-                fileName = $"{FirstCharToUpper(_sp)}Result.cs";
-                
-                File.WriteAllText(Path.Combine(P_OutPutFolder, fileName), "Hello World!!!");
+                sResultClass.AppendLine(SPToCore_GenerateResult(_sp, dt_SpResult));
 
                 i++;
             }
+
+            template = template.Replace("[@1]", sResultClass.ToString());
+
+            File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContext.cs"), template);
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
 
@@ -67,6 +86,60 @@ namespace SPToCore
             }
             
             
+        }
+
+        private static string SPToCore_GenerateResult(string _sp, DataTable _dt)
+        {
+            string template = $@"                    
+                        public class {_sp}Result  
+                        {{
+                            [@0]
+                        }}  
+            ";
+
+            StringBuilder sb = new StringBuilder();
+
+            string name = "";
+            string type = "";
+            string isNullable = "";
+
+            foreach (DataRow r in _dt.Rows) {
+
+                name = type = r["name"].ToString();
+                type = r["system_type_name"].ToString();
+                isNullable = r["system_type_name"].ToString();
+
+                sb.AppendLine($"public {SP_GetType(type,isNullable)} {name} {{get; set;}}");
+            }
+
+            return template.Replace("[@0]", sb.ToString());            
+        }
+
+        private static string SP_GetType(string type,string isNullable)
+        {
+            type = type.ToLower().Trim();
+
+            if (type == "int")
+                return "int" + (isNullable == "1" ? "?" : "");
+            else if (type == "decimal")
+                return "decimal" + (isNullable == "1" ? "?" : "");
+            else if (type.IndexOf("nvarchar") > -1)
+                return "string";
+            else if (type.IndexOf("varchar") > -1)
+                return "string";
+            else if (type.IndexOf("datetimeoffset") > -1)
+                return "DateTimeOffset" + (isNullable == "1" ? "?" : "");
+            else if (type.IndexOf("datetime") > -1)
+                return "DateTime" + (isNullable == "1" ? "?" : "");
+            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime" + (isNullable == "1" ? "?" : "");
+            else if (type == "decimal")
+                return "decimal" + (isNullable == "1" ? "?" : "");
+            else if (type == "bit")
+                return "boolean" + (isNullable == "1" ? "?" : "");
+            else
+                return "WTF?!";                        
+
         }
 
         private static DataTable Get_StoreProcedure_List()
@@ -123,6 +196,7 @@ namespace SPToCore
                                                    case when system_type_id in (35, 99, 167, 175, 231, 239)  
                                                    then ServerProperty('collation') end)  
                                   from sys.parameters where object_id = object_id('{schema}.{sp}')
+                                  ORDER BY parameter_id
                                 ";
 
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -174,7 +248,7 @@ namespace SPToCore
                     sb.AppendLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} - EXCEPTION {i} / {ExceptionList.Count}: {e.StoreProcedure} - {e.Message}");
                     i++;
                 }
-                File.WriteAllText(Path.Combine(P_OutPutFolder, "spToCore_log.txt"),sb.ToString());
+                File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "spToCore_log.txt"),sb.ToString());
             }
             catch (Exception e) {
                 Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} ERROR!!! --> {e.Message}");
