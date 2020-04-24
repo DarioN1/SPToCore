@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SPToCore.Model
 {
-    public partial class SPToCoreContext : DbContext
+    public partial class SPToCoreContext : EMGERPContext
     {
         public SPToCoreContext()
         {
@@ -20,14 +20,15 @@ namespace SPToCore.Model
         {
         }
 
-       
+       /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)  
         {  
             if (!optionsBuilder.IsConfigured)  
             {
                 optionsBuilder.UseSqlServer("Data Source=DN1;Initial Catalog=EMGERP;Persist Security Info=True;User ID=EMGERP_User;Password=emgerp;Connection Timeout=360");
             }  
-        }  
+        }
+        */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
