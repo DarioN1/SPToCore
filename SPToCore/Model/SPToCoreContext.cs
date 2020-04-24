@@ -33,7 +33,7 @@ namespace SPToCore.Model
         {
             
             // [Asma Khalid]: Regster store procedure custom object.  
-            modelBuilder.Query<Material_GET>();            
+            modelBuilder.Query<Material_GET>();
         }
 
         #region 
@@ -49,14 +49,18 @@ namespace SPToCore.Model
             List<Material_GET> lst = new List<Material_GET>();
 
             try
-            {                
+            {
+                // Settings.  
+                SqlParameter p_idUser = new SqlParameter("@idUser", idUser.ToString() ?? (object)DBNull.Value);
+                SqlParameter p_idMaterial = new SqlParameter("@idMaterial", idMaterial.ToString() ?? (object)DBNull.Value);
+
                 // Processing.  
-                FormattableString sqlQuery = $@"EXEC [dbo].[Material_GET] 
-                                                {idUser},
-                                                {idMaterial}
+                string sqlQuery = $@"EXEC [dbo].[Material_GET] 
+                                                @idUser,
+                                                @idMaterial
                                                 ";
 
-                lst = await this.Query<Material_GET>().FromSqlInterpolated(sqlQuery).ToListAsync();
+                lst = await this.Query<Material_GET>().FromSqlRaw(sqlQuery, p_idUser, p_idMaterial).ToListAsync();
             }
             catch (Exception ex)
             {
