@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SPToCore.Test;
@@ -33,7 +33,7 @@ namespace SPToCore.Model
         {
             
             // [Asma Khalid]: Regster store procedure custom object.  
-            modelBuilder.Query<Material_GET>();
+            modelBuilder.Query<Material_GET>().HasNoKey();
         }
 
         #region 
