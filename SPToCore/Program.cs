@@ -1,4 +1,5 @@
 ﻿using EMGERP_WebApi.Model;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using SPToCore.Model;
 using System;
@@ -148,7 +149,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             template = template.Replace("[@NOKEY]", sResultNoKey.ToString());
             template = template.Replace("[@0]", sResultMethods.ToString());
             template = template.Replace("[@1]", sResultClasses.ToString());
-
+            
             File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContext.cs"), template);
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
