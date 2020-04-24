@@ -15,6 +15,8 @@ using System.Text;
  TO DO NEXT: Funziona con una singola SP, testare la totale importazione, ora il debug sta girando su SPCoreContext 
  generato da programma
 
+ I DBSet devono essere creati solo per SP che ritornano risultato ovvero righe con name diverso da stringa vuota
+
      */
 
 namespace SPToCore
@@ -34,31 +36,31 @@ namespace SPToCore
         static async System.Threading.Tasks.Task Main(string[] args)
         {
 
-            using (SPToCoreContext sp = new SPToCoreContext())
-            {
+            //using (SPToCoreContext sp = new SPToCoreContext())
+            //{
 
-                //int prg = 10;
-                //int? idMat = 0;
+            //    //int prg = 10;
+            //    //int? idMat = 0;
 
-                //sp.Material_INITIALIZE(1, $"SPTOCORE{prg}", $"SPTOCORE MATERIAL {prg}", 1, 1, ref idMat);
+            //    //sp.Material_INITIALIZE(1, $"SPTOCORE{prg}", $"SPTOCORE MATERIAL {prg}", 1, 1, ref idMat);
 
-                //var res = await sp.Material_GETAsync(1, (int)idMat);
+            //    //var res = await sp.Material_GETAsync(1, (int)idMat);
 
-                //foreach (var r in res)
-                //{
-                //    Console.WriteLine(r.Code);
-                //    Console.WriteLine(r.Material);
-                //}
+            //    //foreach (var r in res)
+            //    //{
+            //    //    Console.WriteLine(r.Code);
+            //    //    Console.WriteLine(r.Material);
+            //    //}
 
-                var res2 = await sp.Material_SEARCHAsync(1, null, null, null);
-                foreach (var m in res2)
-                {
-                    Console.WriteLine(m.Material);
-                }
+            //    var res2 = await sp.Material_SEARCHAsync(1, null, null, null);
+            //    foreach (var m in res2)
+            //    {
+            //        Console.WriteLine(m.Material);
+            //    }
 
-            }
+            //}
 
-            return;
+            //return;
 
 
 
@@ -162,6 +164,12 @@ public partial class SPToCoreContext : {P_ContextSource}
 
         private static string SPToCore_GenerateDbSet(string _sp, string _schema, DataTable _dtParam, DataTable _dtResult)
         {
+            if (_dtResult.Rows.Count == 0)
+                return "";
+
+            if (_dtResult.Select("name <> ''").Length == 0)
+                return "";
+
             return $@"private DbSet<{_sp}Result> {_sp} {{ get; set; }}";
         }
 
@@ -433,8 +441,8 @@ public partial class SPToCoreContext : {P_ContextSource}
                                  WHERE ROUTINE_TYPE = 'PROCEDURE' "
                                           + (P_ExcludeSystemObject ? " AND LEFT(ROUTINE_NAME, 3) NOT IN ('sp_', 'xp_', 'ms_')" : "")
                                           + (P_Schema != "*" ? $" AND ROUTINE_SCHEMA = '{P_Schema}'" : "") +
-
-                                    "AND ROUTINE_NAME = 'Material_SEARCH' ORDER BY ROUTINE_NAME";
+                                    //"AND ROUTINE_NAME = 'Material_SEARCH'" +
+                                    " ORDER BY ROUTINE_NAME";
 
                     SqlDataAdapter adapter = new SqlDataAdapter();
                     adapter.SelectCommand = new SqlCommand(sql, connection);
