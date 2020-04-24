@@ -211,81 +211,81 @@ namespace EMGERP_WebApi.Model
         {
 
             // No key
-            modelBuilder.Query<ADM_CLEAR_ALLResult>().HasNoKey();
-            modelBuilder.Query<ADM_DELETE_USERResult>().HasNoKey();
-            modelBuilder.Query<ADM_INIT_MDResult>().HasNoKey();
-            modelBuilder.Query<ADM_RESTORE_PRODResult>().HasNoKey();
+
+
+
+
             modelBuilder.Query<ADMIN_GET_ErrorLogResult>().HasNoKey();
             modelBuilder.Query<ADMIN_GET_LockResult>().HasNoKey();
-            modelBuilder.Query<ADMIN_UnlockResult>().HasNoKey();
-            modelBuilder.Query<Bom_ADD_MaterialResult>().HasNoKey();
-            modelBuilder.Query<Bom_ADD_PhaseResult>().HasNoKey();
-            modelBuilder.Query<Bom_ADD_PhaseMaterialResult>().HasNoKey();
+
+
+
+
             modelBuilder.Query<Bom_CHECKResult>().HasNoKey();
-            modelBuilder.Query<Bom_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Bom_CLONEResult>().HasNoKey();
-            modelBuilder.Query<Bom_DELResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Bom_GETResult>().HasNoKey();
             modelBuilder.Query<Bom_GET_MaterialResult>().HasNoKey();
             modelBuilder.Query<Bom_GET_PhaseResult>().HasNoKey();
             modelBuilder.Query<Bom_GET_PhaseMaterialResult>().HasNoKey();
-            modelBuilder.Query<Bom_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Bom_LOCKResult>().HasNoKey();
-            modelBuilder.Query<Bom_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Bom_UPD_HeaderResult>().HasNoKey();
-            modelBuilder.Query<Customer_ADD_ContactResult>().HasNoKey();
-            modelBuilder.Query<Customer_ADD_DivisionResult>().HasNoKey();
-            modelBuilder.Query<Customer_ADD_UPD_BusinessPartnerResult>().HasNoKey();
+
+
+
+
+
+
+
             modelBuilder.Query<Customer_CHECKResult>().HasNoKey();
-            modelBuilder.Query<Customer_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Customer_DELResult>().HasNoKey();
-            modelBuilder.Query<Customer_DEL_BusinessPartnerResult>().HasNoKey();
-            modelBuilder.Query<Customer_DEL_ContactResult>().HasNoKey();
+
+
+
+
             modelBuilder.Query<Customer_GETResult>().HasNoKey();
             modelBuilder.Query<Customer_GET_BusinessPartnerResult>().HasNoKey();
             modelBuilder.Query<Customer_GET_ContactResult>().HasNoKey();
             modelBuilder.Query<Customer_GET_DivisionResult>().HasNoKey();
-            modelBuilder.Query<Customer_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Customer_LOCKResult>().HasNoKey();
-            modelBuilder.Query<Customer_RECOVERResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Customer_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<Customer_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Customer_UPDResult>().HasNoKey();
-            modelBuilder.Query<Customer_UPD_ContactResult>().HasNoKey();
+
+
+
             modelBuilder.Query<CustomerContact_GET_DetailResult>().HasNoKey();
-            modelBuilder.Query<Document_ADDResult>().HasNoKey();
-            modelBuilder.Query<Document_DELResult>().HasNoKey();
+
+
             modelBuilder.Query<Document_GET_DetailResult>().HasNoKey();
             modelBuilder.Query<Document_SEARCHResult>().HasNoKey();
             modelBuilder.Query<Lock_GETResult>().HasNoKey();
-            modelBuilder.Query<Material_ADD_MaterialFormatResult>().HasNoKey();
+
             modelBuilder.Query<Material_CHECKResult>().HasNoKey();
             modelBuilder.Query<Material_CHECK_RecursionResult>().HasNoKey();
-            modelBuilder.Query<Material_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Material_CLEAR_MaterialFormatResult>().HasNoKey();
-            modelBuilder.Query<Material_CLONEResult>().HasNoKey();
-            modelBuilder.Query<Material_DELResult>().HasNoKey();
+
+
+
+
             modelBuilder.Query<Material_GETResult>().HasNoKey();
             modelBuilder.Query<Material_GET_BomResult>().HasNoKey();
             modelBuilder.Query<Material_GET_MaterialFormatResult>().HasNoKey();
             modelBuilder.Query<Material_GET_MaterialWarehouseResult>().HasNoKey();
             modelBuilder.Query<Material_GET_USAGE_MaterialResult>().HasNoKey();
-            modelBuilder.Query<Material_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Material_LOCKResult>().HasNoKey();
+
+
             modelBuilder.Query<Material_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<Material_SET_BomResult>().HasNoKey();
-            modelBuilder.Query<Material_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Material_UPD_HeaderResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_CompanySectorResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_DivisionResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_MaterialSectorResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_MaterialShapeResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_MaterialTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_PaymentTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_ResourceGroupResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_ResourceTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_WorkDepartmentResult>().HasNoKey();
-            modelBuilder.Query<MD_ADD_WorkFunctionResult>().HasNoKey();
+
+
+
+
+
+
+
+
+
+
+
+
+
             modelBuilder.Query<MD_GET_CompanySectorResult>().HasNoKey();
             modelBuilder.Query<MD_GET_CountryResult>().HasNoKey();
             modelBuilder.Query<MD_GET_CultureResult>().HasNoKey();
@@ -315,86 +315,86 @@ namespace EMGERP_WebApi.Model
             modelBuilder.Query<MD_GET_UnitSellingResult>().HasNoKey();
             modelBuilder.Query<MD_GET_WorkDepartmentResult>().HasNoKey();
             modelBuilder.Query<MD_GET_WorkFunctionResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_CompanySectorResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_DivisionResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_MaterialSectorResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_MaterialShapeResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_MaterialTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_PaymentTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_ResourceGroupResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_ResourceTypeResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_WorkDepartmentResult>().HasNoKey();
-            modelBuilder.Query<MD_UPD_WorkFunctionResult>().HasNoKey();
+
+
+
+
+
+
+
+
+
+
             modelBuilder.Query<METEL_PriceList_GET_ALLResult>().HasNoKey();
             modelBuilder.Query<METEL_STG_GET_PriceListResult>().HasNoKey();
-            modelBuilder.Query<METEL_SYNCResult>().HasNoKey();
+
             modelBuilder.Query<Phase_CHECKResult>().HasNoKey();
-            modelBuilder.Query<Phase_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Phase_CLONEResult>().HasNoKey();
-            modelBuilder.Query<Phase_DELResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Phase_GETResult>().HasNoKey();
-            modelBuilder.Query<Phase_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Phase_LOCKResult>().HasNoKey();
+
+
             modelBuilder.Query<Phase_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<Phase_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Phase_UPD_HeaderResult>().HasNoKey();
-            modelBuilder.Query<Resource_ADD_ResourceGroupResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Resource_CHECKResult>().HasNoKey();
-            modelBuilder.Query<Resource_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Resource_CLONEResult>().HasNoKey();
-            modelBuilder.Query<Resource_DELResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Resource_GETResult>().HasNoKey();
             modelBuilder.Query<Resource_GET_ResourceGroupResult>().HasNoKey();
-            modelBuilder.Query<Resource_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Resource_LOCKResult>().HasNoKey();
+
+
             modelBuilder.Query<Resource_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<Resource_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Resource_UPD_HeaderResult>().HasNoKey();
+
+
             modelBuilder.Query<Role_GETResult>().HasNoKey();
-            modelBuilder.Query<STG_IMPORT_INVENTO_JOBResult>().HasNoKey();
-            modelBuilder.Query<STG_METEL_ClearResult>().HasNoKey();
-            modelBuilder.Query<STG_METEL_MATERIAL_AddResult>().HasNoKey();
-            modelBuilder.Query<STG_METEL_PRICE_LIST_AddResult>().HasNoKey();
-            modelBuilder.Query<Stock_CALCULATEResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_ADD_DetailResult>().HasNoKey();
+
+
+
+
+
+
             modelBuilder.Query<StockMovement_CHECKResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_CLEARResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_DELResult>().HasNoKey();
+
+
             modelBuilder.Query<StockMovement_GETResult>().HasNoKey();
             modelBuilder.Query<StockMovement_GET_DetailResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_LOCKResult>().HasNoKey();
+
+
             modelBuilder.Query<StockMovement_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_SEARCH_TESTResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<StockMovement_UPD_HeaderResult>().HasNoKey();
-            modelBuilder.Query<Supplier_ADD_ContactResult>().HasNoKey();
-            modelBuilder.Query<Supplier_ADD_DivisionResult>().HasNoKey();
-            modelBuilder.Query<Supplier_ADD_SupplierTypeResult>().HasNoKey();
-            modelBuilder.Query<Supplier_ADD_UPD_BusinessPartnerResult>().HasNoKey();
+
+
+
+
+
+
+
             modelBuilder.Query<Supplier_CHECKResult>().HasNoKey();
-            modelBuilder.Query<Supplier_CLEARResult>().HasNoKey();
-            modelBuilder.Query<Supplier_DELResult>().HasNoKey();
-            modelBuilder.Query<Supplier_DEL_BusinessPartnerResult>().HasNoKey();
-            modelBuilder.Query<Supplier_DEL_ContactResult>().HasNoKey();
+
+
+
+
             modelBuilder.Query<Supplier_GETResult>().HasNoKey();
             modelBuilder.Query<Supplier_GET_BusinessPartnerResult>().HasNoKey();
             modelBuilder.Query<Supplier_GET_ContactResult>().HasNoKey();
             modelBuilder.Query<Supplier_GET_DivisionResult>().HasNoKey();
             modelBuilder.Query<Supplier_GET_SupplierTypeResult>().HasNoKey();
-            modelBuilder.Query<Supplier_INITIALIZEResult>().HasNoKey();
-            modelBuilder.Query<Supplier_LOCKResult>().HasNoKey();
-            modelBuilder.Query<Supplier_RECOVERResult>().HasNoKey();
+
+
+
             modelBuilder.Query<Supplier_SEARCHResult>().HasNoKey();
-            modelBuilder.Query<Supplier_UNLOCKResult>().HasNoKey();
-            modelBuilder.Query<Supplier_UPDResult>().HasNoKey();
-            modelBuilder.Query<Supplier_UPD_ContactResult>().HasNoKey();
+
+
+
             modelBuilder.Query<SupplierContact_GET_DetailResult>().HasNoKey();
-            modelBuilder.Query<SYS_INITIALIZE_MENUResult>().HasNoKey();
+
             modelBuilder.Query<USER_GET_APP_MenuLeftResult>().HasNoKey();
             modelBuilder.Query<USER_GET_APP_MenuTopResult>().HasNoKey();
-            modelBuilder.Query<USER_InitializeResult>().HasNoKey();
-            modelBuilder.Query<USER_UPD_ProfileResult>().HasNoKey();
+
+
             modelBuilder.Query<Warehouse_SEARCHResult>().HasNoKey();
 
 
@@ -6440,28 +6440,8 @@ namespace EMGERP_WebApi.Model
 
 
 
-        public class ADM_CLEAR_ALLResult
-        {
-
-        }
 
 
-        public class ADM_DELETE_USERResult
-        {
-
-        }
-
-
-        public class ADM_INIT_MDResult
-        {
-
-        }
-
-
-        public class ADM_RESTORE_PRODResult
-        {
-
-        }
 
 
         public class ADMIN_GET_ErrorLogResult
@@ -6493,28 +6473,8 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class ADMIN_UnlockResult
-        {
-
-        }
 
 
-        public class Bom_ADD_MaterialResult
-        {
-
-        }
-
-
-        public class Bom_ADD_PhaseResult
-        {
-
-        }
-
-
-        public class Bom_ADD_PhaseMaterialResult
-        {
-
-        }
 
 
         public class Bom_CHECKResult
@@ -6529,22 +6489,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Bom_CLEARResult
-        {
 
-        }
-
-
-        public class Bom_CLONEResult
-        {
-
-        }
-
-
-        public class Bom_DELResult
-        {
-
-        }
 
 
         public class Bom_GETResult
@@ -6656,46 +6601,11 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Bom_INITIALIZEResult
-        {
-
-        }
 
 
-        public class Bom_LOCKResult
-        {
-
-        }
 
 
-        public class Bom_UNLOCKResult
-        {
 
-        }
-
-
-        public class Bom_UPD_HeaderResult
-        {
-
-        }
-
-
-        public class Customer_ADD_ContactResult
-        {
-
-        }
-
-
-        public class Customer_ADD_DivisionResult
-        {
-
-        }
-
-
-        public class Customer_ADD_UPD_BusinessPartnerResult
-        {
-
-        }
 
 
         public class Customer_CHECKResult
@@ -6710,28 +6620,8 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Customer_CLEARResult
-        {
-
-        }
 
 
-        public class Customer_DELResult
-        {
-
-        }
-
-
-        public class Customer_DEL_BusinessPartnerResult
-        {
-
-        }
-
-
-        public class Customer_DEL_ContactResult
-        {
-
-        }
 
 
         public class Customer_GETResult
@@ -6859,22 +6749,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Customer_INITIALIZEResult
-        {
 
-        }
-
-
-        public class Customer_LOCKResult
-        {
-
-        }
-
-
-        public class Customer_RECOVERResult
-        {
-
-        }
 
 
         public class Customer_SEARCHResult
@@ -6898,22 +6773,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Customer_UNLOCKResult
-        {
 
-        }
-
-
-        public class Customer_UPDResult
-        {
-
-        }
-
-
-        public class Customer_UPD_ContactResult
-        {
-
-        }
 
 
         public class CustomerContact_GET_DetailResult
@@ -6943,16 +6803,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Document_ADDResult
-        {
-
-        }
-
-
-        public class Document_DELResult
-        {
-
-        }
 
 
         public class Document_GET_DetailResult
@@ -7008,11 +6858,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Material_ADD_MaterialFormatResult
-        {
-
-        }
-
 
         public class Material_CHECKResult
         {
@@ -7034,28 +6879,8 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Material_CLEARResult
-        {
-
-        }
 
 
-        public class Material_CLEAR_MaterialFormatResult
-        {
-
-        }
-
-
-        public class Material_CLONEResult
-        {
-
-        }
-
-
-        public class Material_DELResult
-        {
-
-        }
 
 
         public class Material_GETResult
@@ -7243,16 +7068,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Material_INITIALIZEResult
-        {
-
-        }
-
-
-        public class Material_LOCKResult
-        {
-
-        }
 
 
         public class Material_SEARCHResult
@@ -7319,82 +7134,17 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Material_SET_BomResult
-        {
-
-        }
 
 
-        public class Material_UNLOCKResult
-        {
-
-        }
 
 
-        public class Material_UPD_HeaderResult
-        {
-
-        }
 
 
-        public class MD_ADD_CompanySectorResult
-        {
-
-        }
 
 
-        public class MD_ADD_DivisionResult
-        {
-
-        }
 
 
-        public class MD_ADD_MaterialSectorResult
-        {
 
-        }
-
-
-        public class MD_ADD_MaterialShapeResult
-        {
-
-        }
-
-
-        public class MD_ADD_MaterialTypeResult
-        {
-
-        }
-
-
-        public class MD_ADD_PaymentTypeResult
-        {
-
-        }
-
-
-        public class MD_ADD_ResourceGroupResult
-        {
-
-        }
-
-
-        public class MD_ADD_ResourceTypeResult
-        {
-
-        }
-
-
-        public class MD_ADD_WorkDepartmentResult
-        {
-
-        }
-
-
-        public class MD_ADD_WorkFunctionResult
-        {
-
-        }
 
 
         public class MD_GET_CompanySectorResult
@@ -7745,64 +7495,14 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class MD_UPD_CompanySectorResult
-        {
-
-        }
 
 
-        public class MD_UPD_DivisionResult
-        {
-
-        }
 
 
-        public class MD_UPD_MaterialSectorResult
-        {
-
-        }
 
 
-        public class MD_UPD_MaterialShapeResult
-        {
-
-        }
 
 
-        public class MD_UPD_MaterialTypeResult
-        {
-
-        }
-
-
-        public class MD_UPD_PaymentTypeResult
-        {
-
-        }
-
-
-        public class MD_UPD_ResourceGroupResult
-        {
-
-        }
-
-
-        public class MD_UPD_ResourceTypeResult
-        {
-
-        }
-
-
-        public class MD_UPD_WorkDepartmentResult
-        {
-
-        }
-
-
-        public class MD_UPD_WorkFunctionResult
-        {
-
-        }
 
 
         public class METEL_PriceList_GET_ALLResult
@@ -7848,11 +7548,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class METEL_SYNCResult
-        {
-
-        }
-
 
         public class Phase_CHECKResult
         {
@@ -7866,22 +7561,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Phase_CLEARResult
-        {
 
-        }
-
-
-        public class Phase_CLONEResult
-        {
-
-        }
-
-
-        public class Phase_DELResult
-        {
-
-        }
 
 
         public class Phase_GETResult
@@ -7931,16 +7611,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Phase_INITIALIZEResult
-        {
-
-        }
-
-
-        public class Phase_LOCKResult
-        {
-
-        }
 
 
         public class Phase_SEARCHResult
@@ -7990,22 +7660,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Phase_UNLOCKResult
-        {
 
-        }
-
-
-        public class Phase_UPD_HeaderResult
-        {
-
-        }
-
-
-        public class Resource_ADD_ResourceGroupResult
-        {
-
-        }
 
 
         public class Resource_CHECKResult
@@ -8020,22 +7675,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Resource_CLEARResult
-        {
 
-        }
-
-
-        public class Resource_CLONEResult
-        {
-
-        }
-
-
-        public class Resource_DELResult
-        {
-
-        }
 
 
         public class Resource_GETResult
@@ -8078,16 +7718,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Resource_INITIALIZEResult
-        {
-
-        }
-
-
-        public class Resource_LOCKResult
-        {
-
-        }
 
 
         public class Resource_SEARCHResult
@@ -8117,16 +7747,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Resource_UNLOCKResult
-        {
-
-        }
-
-
-        public class Resource_UPD_HeaderResult
-        {
-
-        }
 
 
         public class Role_GETResult
@@ -8137,40 +7757,10 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class STG_IMPORT_INVENTO_JOBResult
-        {
-
-        }
 
 
-        public class STG_METEL_ClearResult
-        {
-
-        }
 
 
-        public class STG_METEL_MATERIAL_AddResult
-        {
-
-        }
-
-
-        public class STG_METEL_PRICE_LIST_AddResult
-        {
-
-        }
-
-
-        public class Stock_CALCULATEResult
-        {
-
-        }
-
-
-        public class StockMovement_ADD_DetailResult
-        {
-
-        }
 
 
         public class StockMovement_CHECKResult
@@ -8185,16 +7775,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class StockMovement_CLEARResult
-        {
-
-        }
-
-
-        public class StockMovement_DELResult
-        {
-
-        }
 
 
         public class StockMovement_GETResult
@@ -8294,16 +7874,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class StockMovement_INITIALIZEResult
-        {
-
-        }
-
-
-        public class StockMovement_LOCKResult
-        {
-
-        }
 
 
         public class StockMovement_SEARCHResult
@@ -8356,46 +7926,11 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class StockMovement_SEARCH_TESTResult
-        {
-
-        }
 
 
-        public class StockMovement_UNLOCKResult
-        {
-
-        }
 
 
-        public class StockMovement_UPD_HeaderResult
-        {
 
-        }
-
-
-        public class Supplier_ADD_ContactResult
-        {
-
-        }
-
-
-        public class Supplier_ADD_DivisionResult
-        {
-
-        }
-
-
-        public class Supplier_ADD_SupplierTypeResult
-        {
-
-        }
-
-
-        public class Supplier_ADD_UPD_BusinessPartnerResult
-        {
-
-        }
 
 
         public class Supplier_CHECKResult
@@ -8410,28 +7945,8 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Supplier_CLEARResult
-        {
-
-        }
 
 
-        public class Supplier_DELResult
-        {
-
-        }
-
-
-        public class Supplier_DEL_BusinessPartnerResult
-        {
-
-        }
-
-
-        public class Supplier_DEL_ContactResult
-        {
-
-        }
 
 
         public class Supplier_GETResult
@@ -8572,22 +8087,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Supplier_INITIALIZEResult
-        {
 
-        }
-
-
-        public class Supplier_LOCKResult
-        {
-
-        }
-
-
-        public class Supplier_RECOVERResult
-        {
-
-        }
 
 
         public class Supplier_SEARCHResult
@@ -8611,22 +8111,7 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class Supplier_UNLOCKResult
-        {
 
-        }
-
-
-        public class Supplier_UPDResult
-        {
-
-        }
-
-
-        public class Supplier_UPD_ContactResult
-        {
-
-        }
 
 
         public class SupplierContact_GET_DetailResult
@@ -8655,11 +8140,6 @@ namespace EMGERP_WebApi.Model
 
         }
 
-
-        public class SYS_INITIALIZE_MENUResult
-        {
-
-        }
 
 
         public class USER_GET_APP_MenuLeftResult
@@ -8698,16 +8178,6 @@ namespace EMGERP_WebApi.Model
         }
 
 
-        public class USER_InitializeResult
-        {
-
-        }
-
-
-        public class USER_UPD_ProfileResult
-        {
-
-        }
 
 
         public class Warehouse_SEARCHResult

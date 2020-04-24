@@ -12,11 +12,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 /*
- TO DO NEXT: Funziona con una singola SP, testare la totale importazione, ora il debug sta girando su SPCoreContext 
- generato da programma
+ TO DO NEXT: compila tutte le 185 SP.
 
- I DBSet devono essere creati solo per SP che ritornano risultato ovvero righe con name diverso da stringa vuota
-
+    TESTARE !!!
+     
      */
 
 namespace SPToCore
@@ -175,6 +174,12 @@ public partial class SPToCoreContext : {P_ContextSource}
 
         private static string SPToCore_GenerateNoKey(string _sp, string _schema, DataTable _dtParam, DataTable _dtResult)
         {
+            if (_dtResult.Rows.Count == 0)
+                return "";
+
+            if (_dtResult.Select("name <> ''").Length == 0)
+                return "";
+
             return $@"modelBuilder.Query<{_sp}Result>().HasNoKey();";
         }
 
@@ -362,9 +367,14 @@ public partial class SPToCoreContext : {P_ContextSource}
             return template;
         }
 
-        private static string SPToCore_GenerateResult(string _sp,string _schema, DataTable _dt)
+        private static string SPToCore_GenerateResult(string _sp,string _schema, DataTable _dtResult)
         {
-            
+            if (_dtResult.Rows.Count == 0)
+                return "";
+
+            if (_dtResult.Select("name <> ''").Length == 0)
+                return "";
+
             if (_sp == "Material_GET") {
                 int i = 0;
             }
@@ -383,7 +393,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             string type = "";
             bool isNullable;
 
-            foreach (DataRow r in _dt.Rows) {
+            foreach (DataRow r in _dtResult.Rows) {
 
                 name = r["name"].ToString();
                 if (name != "")
