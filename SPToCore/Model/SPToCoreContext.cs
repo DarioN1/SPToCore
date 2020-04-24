@@ -11,6 +11,8 @@ namespace SPToCore.Model
 {
     public partial class SPToCoreContext : EMGERPContext
     {
+        private DbSet<Material_GET> Matherial_GET { get; set; }
+
         public SPToCoreContext()
         {
         }
@@ -35,6 +37,9 @@ namespace SPToCore.Model
             
             // [Asma Khalid]: Regster store procedure custom object.  
             modelBuilder.Query<Material_GET>().HasNoKey();
+
+            //Thanks Valecass!!!
+            base.OnModelCreating(modelBuilder);
         }
 
         #region 
@@ -61,7 +66,7 @@ namespace SPToCore.Model
                                                 @idMaterial
                                                 ";
 
-                lst = await this.Query<Material_GET>().FromSqlRaw(sqlQuery, p_idUser, p_idMaterial).ToListAsync();
+                lst = await this.Matherial_GET.FromSqlRaw(sqlQuery, p_idUser, p_idMaterial).ToListAsync();
             }
             catch (Exception ex)
             {

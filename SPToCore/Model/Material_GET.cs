@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SPToCore.Model
-{
-    [NotMapped]
+{    
     public class Material_GET
     {
         public int idMaterial { get; set; }
