@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SPToCore.Model
 {
-    class SpException
+    public class SpException
     {
         public string Method { get; set; }
         public string FullName { get; set; }

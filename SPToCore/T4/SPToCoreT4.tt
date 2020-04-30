@@ -1,0 +1,92 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Data;
+using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SPToCore.Test;
+
+namespace SPToCore.Model
+{
+    public partial class SPToCoreContextT4 : <#=SourceDbContext#>
+    {
+<# foreach (var sp in SpList){ if (sp.Results.Count > 0) {#>
+        private DbSet<<#=sp.Name#>Result> <#=sp.Name#> { get; set; }
+<# }}#>
+
+        public SPToCoreContextT4()
+        {
+        }
+
+        public SPToCoreContextT4(DbContextOptions<<#=SourceDbContext#>> options)
+            : base(options)
+        {
+        }               
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {            
+            // No key            
+<#    foreach (var sp in SpList){ if (sp.Results.Count > 0){#>
+            modelBuilder.Query<<#=                sp.Name#>Result>().HasNoKey();
+<#    }}#>
+            //Thanks Valecass!!!
+            base.OnModelCreating(modelBuilder);
+        }
+
+<# foreach (var sp in SpList){ #>
+        <#=sp.GetMethodDefinition()#>(<# foreach (var p in sp.Params){ #><#=(p.Order == "1" ? "" : "," )#><#=(p.isOutput ? "ref " : "" )#><#=p.Type#> <#=p.Param#><#}#>)
+        {
+<#if (sp.Results.Count > 0){#>
+            //Initialize Result 
+            List<<#=sp.Name#>Result> lst = new List<<#=sp.Name#>Result>();
+<#}#>
+            try
+            {
+<#if (sp.Params.Count > 0) {#>
+                // Parameters
+<# foreach (var p in sp.Params){ #>
+                SqlParameter p_<#=p.Param#> = new SqlParameter("@<#=p.Param#>", <#=p.Param#>.ToString() ?? (object)DBNull.Value);
+<# }#><#}#>
+
+                // Processing 
+                string sqlQuery = $@"EXEC [<#=sp.Schema#>].[<#=sp.Name#>] <# foreach (var p in sp.Params){ #><#=(p.Order == "1" ? "" : ", " )#>@<#=p.Param#><#=(p.isOutput ? " OUTPUT" : "" )#><#}#>";
+<#if (sp.Results.Count > 0) {#>
+                
+                //Output Data
+                lst = await this.<#=sp.Name#>.FromSqlRaw(sqlQuery <# foreach (var p in sp.Params){ #>, p_<#=p.Param#> <#}#>).ToListAsync();<#}#>
+
+<#if (sp.Params.Where(x=> x.isOutput).Count() > 0) {#>
+                
+                //Output Params
+<# foreach (var p in sp.Params.Where(x=> x.isOutput)){ #>                <#=p.Param#> = (<#=p.Type#>)p_<#=p.Param#>.Value;
+<#}#>
+<#}#>
+            }
+            catch (Exception ex){
+                throw ex;
+            }
+
+            //Return
+<#if (sp.Results.Count > 0) {#>
+            return lst;
+<#}#>
+        }
+
+<# }#>
+
+<# foreach (var sp in SpList){ if (sp.Results.Count > 0){#>
+        public class <#=sp.Name#>Result
+        {
+<# foreach (var r in sp.Results){#>
+            public <#=r.Type#> <#=r.Name#> { get; set; }
+<# }#>
+        }
+
+<# }}#>
+    }
+}

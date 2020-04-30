@@ -1,16 +1,21 @@
-﻿using EMGERP_WebApi.Model;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using SPToCore.Model;
+using SPToCore.T4;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
+//using SPToCore.T4;
+
+
 
 /*
  TO DO NEXT: compila tutte le 185 SP.
@@ -18,6 +23,11 @@ using System.Text;
     TESTARE !!!
      
      */
+     
+[assembly: DesignTimeServicesReference(
+    "EFCore.TextTemplating.DesignTimeServices, EFCore.TextTemplating")]
+
+
 
 namespace SPToCore
 {
@@ -31,10 +41,14 @@ namespace SPToCore
         public static string P_OutPutSolutionFolder = @"Model";
         public static string P_OutPutPhysicalFolder = @"C:\TEMP\SPtoCore";
 
+        public static List<Sp> SpList = new List<Sp>();        
         public static List<SpException> ExceptionList = new List<SpException>();
 
         static async System.Threading.Tasks.Task Main(string[] args)
-        {
+        {                       
+            //Console.Write(spToCoreT4Processed.TransformText());
+
+            //return;
 
             //using (SPToCoreContext sp = new SPToCoreContext())
             //{
@@ -127,7 +141,7 @@ public partial class SPToCoreContext : {P_ContextSource}
 }}
                 ";
 
-            foreach (DataRow r in dt_SpList.Rows) {
+            foreach (DataRow r in dt_SpList.Rows) {                
                 
                 _schema = r["ROUTINE_SCHEMA"].ToString();
                 _sp = r["ROUTINE_NAME"].ToString();
@@ -140,7 +154,76 @@ public partial class SPToCoreContext : {P_ContextSource}
                 sResultDbSet.AppendLine(SPToCore_GenerateDbSet(_sp, _schema, dt_SpParam, dt_SpResult));
                 sResultNoKey.AppendLine(SPToCore_GenerateNoKey(_sp, _schema, dt_SpParam, dt_SpResult));
                 sResultMethods.AppendLine(SPToCore_GenerateMethod(_sp,_schema, dt_SpParam, dt_SpResult));
-                sResultClasses.AppendLine(SPToCore_GenerateResult(_sp,_schema, dt_SpResult));
+                sResultClasses.AppendLine(SPToCore_GenerateResult(_sp,_schema, dt_SpResult));                
+
+                var pList = new List<SpParam>();
+                foreach (DataRow par in dt_SpParam.Rows) {
+                      
+                    var _p = new SpParam() {
+
+                        Param = par["Parameter"].ToString().Replace("@",""),
+                        Type = SP_GetType(par["Type"].ToString(), (bool)par["is_nullable"]),
+                        Length = (par["Length"].GetType().Name == "DBNull" ? null : par["Length"].ToString()),
+                        Precision = (par["Precision"].GetType().Name == "DBNull" ? null : par["Precision"].ToString()),
+                        Scale = (par["Scale"].GetType().Name == "DBNull" ? null : par["Scale"].ToString()),
+                        Order = (par["Order"].GetType().Name == "DBNull" ? null : par["Order"].ToString()),
+                        isOutput = (bool)par["is_Output"],
+                        isNullable = (bool)par["is_nullable"],
+                        Collation = (par["Collation"].GetType().Name == "DBNull" ? null : par["Collation"].ToString()),
+
+                        sql_Param = (par["Parameter"].GetType().Name == "DBNull" ? null : par["Parameter"].ToString()),
+                        sql_Type = (par["Type"].GetType().Name == "DBNull" ? null : par["Type"].ToString()),
+                        sql_Length = (par["Length"].GetType().Name == "DBNull" ? null : par["Length"].ToString()),
+                        sql_Prec = (par["Precision"].GetType().Name == "DBNull" ? null : par["Precision"].ToString()),
+                        sql_Scale = (par["Scale"].GetType().Name == "DBNull" ? null : par["Scale"].ToString()),
+                        sql_Order = (par["Order"].GetType().Name == "DBNull" ? null : par["Order"].ToString()),
+                        sql_isOutput = (par["is_Output"].GetType().Name == "DBNull" ? null : par["is_Output"].ToString()),
+                        sql_isNullable = (par["is_nullable"].GetType().Name == "DBNull" ? null : par["is_nullable"].ToString()),
+                        sql_Collation = (par["Collation"].GetType().Name == "DBNull" ? null : par["Collation"].ToString()),
+                    };
+
+                    pList.Add(_p);
+                }
+
+                var rList = new List<SpResultElement>();
+                foreach (DataRow res in dt_SpResult.Rows){
+
+                    var _r = new SpResultElement() {
+
+                        Name = res["name"].ToString(),
+                        Type = SP_GetType(res["system_type_name"].ToString(), (bool)res["is_nullable"]),
+                        Length = (res["max_length"].GetType().Name == "DBNull" ? null : res["max_length"].ToString()),
+                        Precision = (res["precision"].GetType().Name == "DBNull" ? null : res["precision"].ToString()),
+                        Scale = (res["scale"].GetType().Name == "DBNull" ? null : res["scale"].ToString()),
+                        Order = (res["column_ordinal"].GetType().Name == "DBNull" ? null : res["column_ordinal"].ToString()),
+                        isNullable = (bool)res["is_nullable"],
+                        Collation = (res["collation_name"].GetType().Name == "DBNull" ? null : res["collation_name"].ToString()),
+
+                        sql_Name = (res["name"].GetType().Name == "DBNull" ? null : res["name"].ToString()),
+                        sql_Type = (res["system_type_name"].GetType().Name == "DBNull" ? null : res["system_type_name"].ToString()),
+                        sql_Length = (res["max_length"].GetType().Name == "DBNull" ? null : res["max_length"].ToString()),
+                        sql_Precision = (res["precision"].GetType().Name == "DBNull" ? null : res["precision"].ToString()),
+                        sql_Scale = (res["scale"].GetType().Name == "DBNull" ? null : res["scale"].ToString()),
+                        sql_Order = (res["column_ordinal"].GetType().Name == "DBNull" ? null : res["column_ordinal"].ToString()),
+                        sql_isNullable = (res["is_nullable"].GetType().Name == "DBNull" ? null : res["is_nullable"].ToString()),
+                        sql_Collation = (res["collation_name"].GetType().Name == "DBNull" ? null : res["collation_name"].ToString()),
+
+                    };
+
+
+
+                    rList.Add(_r); 
+                }
+
+                var sp = new Sp()
+                {
+                    Name = r["ROUTINE_NAME"].ToString(),
+                    Schema = r["ROUTINE_SCHEMA"].ToString(),
+                    Params = pList,
+                    Results = rList
+                };
+
+                SpList.Add(sp);
 
                 i++;
             }
@@ -153,6 +236,11 @@ public partial class SPToCoreContext : {P_ContextSource}
             File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContext.cs"), template);
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
+
+            
+            SPToCoreT4 spToCoreT4Processed = new SPToCoreT4(SpList, P_ContextSource);
+
+            File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContextT4.cs"), spToCoreT4Processed.TransformText());
 
             if (ExceptionList.Count > 0) {
                 Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} EXCEPTION FOUND! Please check SPToCore_log.txt");
@@ -185,12 +273,7 @@ public partial class SPToCoreContext : {P_ContextSource}
         }
 
         private static string SPToCore_GenerateMethod(string _sp,string _schema, DataTable _dtParam, DataTable _dtResult)
-        {
-            if (_sp == "Material_SEARCH") {
-
-                int pippo = 0;
-            }
-
+        {            
             string template = $@"                    
                         public [@H0] ([@H1])  
                         {{
@@ -248,7 +331,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             //[@H1] method Parameters
             foreach (DataRow r in _dtParam.Rows)
             {
-                name = r["Parameter_name"].ToString().Replace("@", "");
+                name = r["Parameter"].ToString().Replace("@", "");
                 type = r["Type"].ToString();
                 isNullable = (bool)r["is_nullable"];
                 isOutput = (bool)r["is_Output"];
@@ -263,7 +346,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             if (_dtParam.Rows.Count > 0) { 
                 foreach (DataRow r in _dtParam.Rows)
                 {
-                    name = r["Parameter_name"].ToString().Replace("@", "");
+                    name = r["Parameter"].ToString().Replace("@", "");
                     type = r["Type"].ToString();
                     isNullable = (bool)r["is_nullable"];
                     isOutput = (bool)r["is_Output"];
@@ -279,7 +362,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             StringBuilder sbSpParam = new StringBuilder();
             foreach (DataRow r in _dtParam.Rows)
             {
-                name = r["Parameter_name"].ToString().Replace("@", "");
+                name = r["Parameter"].ToString().Replace("@", "");
                 type = r["Type"].ToString();
                 isNullable = (bool)r["is_nullable"];
                 isOutput = (bool)r["is_Output"];
@@ -306,7 +389,7 @@ public partial class SPToCoreContext : {P_ContextSource}
                 {
                     foreach (DataRow r in _dtParam.Rows)
                     {
-                        name = r["Parameter_name"].ToString().Replace("@", "");
+                        name = r["Parameter"].ToString().Replace("@", "");
                         type = r["Type"].ToString();
                         isNullable = (bool)r["is_nullable"];
                         isOutput = (bool)r["is_Output"];
@@ -328,7 +411,7 @@ public partial class SPToCoreContext : {P_ContextSource}
             {
                 foreach (DataRow r in _dtParam.Rows)
                 {
-                    name = r["Parameter_name"].ToString().Replace("@", "");
+                    name = r["Parameter"].ToString().Replace("@", "");
                     type = r["Type"].ToString();
                     isNullable = (bool)r["is_nullable"];
                     isOutput = (bool)r["is_Output"];
@@ -409,6 +492,9 @@ public partial class SPToCoreContext : {P_ContextSource}
             return template.Replace("[@0]", sb.ToString());            
         }
 
+        
+
+
         private static string SP_GetType(string type,bool isNullable)
         {
             
@@ -481,14 +567,14 @@ public partial class SPToCoreContext : {P_ContextSource}
                 {
                     string sql = $@"
                                 SELECT  
-                                   'Parameter_name' = name,  
+                                   'Parameter' = name,  
                                    'Type'   = type_name(user_type_id),  
-                                   'Length'   = max_length,  
-                                   'Prec'   = case when type_name(system_type_id) = 'uniqueidentifier' 
+                                   'Length'   = CAST(max_length AS INT),  
+                                   'Precision'   = CAST(case when type_name(system_type_id) = 'uniqueidentifier' 
                                               then precision  
-                                              else OdbcPrec(system_type_id, max_length, precision) end,  
-                                   'Scale'   = OdbcScale(system_type_id, scale),  
-                                   'Param_order'  = parameter_id,  
+                                              else OdbcPrec(system_type_id, max_length, precision) end AS INT),  
+                                   'Scale'   = CAST(OdbcScale(system_type_id, scale) AS INT),  
+                                   'Order'  = CAST(parameter_id AS INT),  
                                    'Collation'   = convert(sysname, 
                                                    case when system_type_id in (35, 99, 167, 175, 231, 239)  
                                                    then ServerProperty('collation') end),
