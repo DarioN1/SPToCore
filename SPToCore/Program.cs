@@ -36,13 +36,22 @@ namespace SPToCore
 {
     static class Program
     {
-        public static string P_ConnectionString = "Data Source=DN1;Initial Catalog=EMGERP;Persist Security Info=True;User ID=EMGERP_User;Password=emgerp;Connection Timeout=360";
-        public static string P_NameSpace = "EMGERP_WebApi";
-        public static string P_ContextSource = "EMGERPContext";
-        public static string P_Schema = "*";
-        public static bool P_ExcludeSystemObject = true;
-        public static string P_OutPutSolutionFolder = @"Model";
-        public static string P_OutPutPhysicalFolder = @"C:\TEMP\SPtoCore";
+        //public static string P_ConnectionString = "Data Source=DN1;bla bla bla";
+        //public static string P_NameSpace = "myApp";
+        //public static string P_ContextSource = "myContext";
+        //public static string P_Schema = "*";
+        //public static bool P_ExcludeSystemObject = true;
+        //public static string P_OutPutSolutionFolder = @"Model";
+        //public static string P_OutPutPhysicalFolder = @"C:\TEMP\SPtoCore";
+
+        public static string P_ConnectionString;
+        public static string P_NameSpace;
+        public static string P_ContextSource;
+        public static string P_Schema;
+        public static bool P_ExcludeSystemObject;
+        public static string P_OutPutSolutionFolder;
+        public static string P_OutPutPhysicalFolder;
+
 
         public static List<Sp> SpList = new List<Sp>();        
         public static List<SpException> ExceptionList = new List<SpException>();
