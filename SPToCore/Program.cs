@@ -1,7 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Scaffolding;
-using SPToCore.Model;
+﻿using SPToCore.Model;
 using SPToCore.T4;
 using System;
 using System.Collections.Generic;
@@ -9,28 +6,10 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-//using SPToCore.T4;
-
-
-
-/*
- TO DO NEXT: compila tutte le 185 SP.
-
-    TESTARE !!!
-     
-     */
-
-[assembly: DesignTimeServicesReference(
-    "EFCore.TextTemplating.DesignTimeServices, EFCore.TextTemplating")]
-
-
 
 namespace SPToCore
 {
@@ -48,7 +27,7 @@ namespace SPToCore
         public static string P_NameSpace;
         public static string P_ContextSource;
         public static string P_Schema;
-        public static bool P_ExcludeSystemObject;
+        public static bool P_ExcludeSystemObject = true;
         public static string P_OutPutSolutionFolder;
         public static string P_OutPutPhysicalFolder;
 

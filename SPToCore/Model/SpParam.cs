@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SPToCore.Model
+﻿namespace SPToCore.Model
 {
     public class SpParam
     {
