@@ -91,6 +91,13 @@ All the parameters are mandatories, you have to specify eachone of them:
 | `pfolder` | `pf` | Physical destination folder where the output file will be written |
 | `filename` | `f` | Output file name |
 
+## Compatibility
+
+SQL Server 2012 ( All versions )
+SQL Server 2014 ( All versions )
+SQL Server 2017 ( All versions )
+SQL Server 2019 ( All versions )
+
 ## Special Thanks
 
 Special thanks to:
