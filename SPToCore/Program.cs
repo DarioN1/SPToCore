@@ -22,6 +22,7 @@ namespace SPToCore
         //public static bool P_ExcludeSystemObject = true;
         //public static string P_OutPutSolutionFolder = @"Model";
         //public static string P_OutPutPhysicalFolder = @"C:\TEMP\SPtoCore";
+        //public static string P_OutPutFilename = @"SPToCoreContext.cs";
 
         public static string P_ConnectionString;
         public static string P_NameSpace;
@@ -30,6 +31,7 @@ namespace SPToCore
         public static bool P_ExcludeSystemObject = true;
         public static string P_OutPutSolutionFolder;
         public static string P_OutPutPhysicalFolder;
+        public static string P_OutPutFilename;
 
 
         public static List<Sp> SpList = new List<Sp>();        
@@ -123,8 +125,6 @@ namespace SPToCore
 
                     };
 
-
-
                     rList.Add(_r); 
                 }
 
@@ -143,9 +143,9 @@ namespace SPToCore
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} FINISH");
             
-            SPToCoreT4 spToCoreT4Processed = new SPToCoreT4(SpList, P_ContextSource);
+            SPToCoreT4 spToCoreT4Processed = new SPToCoreT4(SpList, P_NameSpace,P_OutPutSolutionFolder, P_ContextSource);
 
-            File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, "SPToCoreContextT4.cs"), spToCoreT4Processed.TransformText());
+            File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, P_OutPutFilename), spToCoreT4Processed.TransformText());
 
             if (ExceptionList.Count > 0) {
                 Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} EXCEPTION FOUND! Please check SPToCore_log.txt in '{P_OutPutPhysicalFolder}'");
@@ -206,22 +206,31 @@ namespace SPToCore
                 }
             }
             );
-            cmd.Handler = CommandHandler.Create<string,string,string,string,string,string >((cnn, nsp,sch, ctx,sf, pf) => {
+            cmd.AddOption(new Option(new[] { "--filename", "-f" }, @"Output Filename (ex 'SPToCoreContext.cs')")
+            {
+                Argument = new Argument<string>()
+                {
+                    Arity = ArgumentArity.ExactlyOne
+                }
+            }
+            );            
+
+            cmd.Handler = CommandHandler.Create<string,string,string,string,string,string,string>((cnn, nsp,sch, ctx,sf, pf,f) => {
                 P_ConnectionString = cnn;      
                 P_NameSpace = nsp;
                 P_Schema = sch;
                 P_ContextSource = ctx;
                 P_OutPutSolutionFolder = sf;
                 P_OutPutPhysicalFolder = pf;
-
-                
+                P_OutPutFilename = f;
 
                 if (!String.IsNullOrEmpty(cnn) &&
                    !String.IsNullOrEmpty(sch) &&
                    !String.IsNullOrEmpty(nsp) &&
                    !String.IsNullOrEmpty(ctx) &&
                    !String.IsNullOrEmpty(sf) &&
-                   !String.IsNullOrEmpty(pf)
+                   !String.IsNullOrEmpty(pf) &&
+                   !String.IsNullOrEmpty(f)
                 )
                 {
                     Console.WriteLine(P_ConnectionString);
@@ -230,6 +239,7 @@ namespace SPToCore
                     Console.WriteLine(P_ContextSource);
                     Console.WriteLine(P_OutPutSolutionFolder);
                     Console.WriteLine(P_OutPutPhysicalFolder);
+                    Console.WriteLine(P_OutPutFilename);
 
                     SPToCoreScan();
 
@@ -259,6 +269,10 @@ namespace SPToCore
                     if (String.IsNullOrEmpty(pf))
                     {
                         Console.WriteLine("Parameter Missing: physical folder");
+                    }
+                    if (String.IsNullOrEmpty(f))
+                    {
+                        Console.WriteLine("Parameter Missing: output filename");
                     }
                 }
 

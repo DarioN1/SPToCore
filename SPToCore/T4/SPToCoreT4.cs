@@ -28,55 +28,81 @@ namespace SPToCore.T4
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Data;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SPToCore.Test;
-
-namespace SPToCore.Model
-{
-    public partial class SPToCoreContextT4 : ");
+            this.Write("using System;\r\nusing System.Data;\r\nusing System.Collections.Generic;\r\nusing Micro" +
+                    "soft.Data.SqlClient;\r\nusing System.Threading.Tasks;\r\nusing Microsoft.EntityFrame" +
+                    "workCore;\r\n\r\nnamespace ");
             
-            #line 16 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 13 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 13 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(SolutionDestinationFolder));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n{\r\n    public partial class ");
+            
+            #line 15 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DestinationDbContext));
+            
+            #line default
+            #line hidden
+            this.Write(" : ");
+            
+            #line 15 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SourceDbContext));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n");
             
-            #line 18 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 17 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var sp in SpList){ if (sp.Results.Count > 0) {
             
             #line default
             #line hidden
             this.Write("        private DbSet<");
             
-            #line 19 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 18 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("Result> ");
             
-            #line 19 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 18 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 20 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 19 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }}
             
             #line default
             #line hidden
-            this.Write("\r\n        public SPToCoreContextT4()\r\n        {\r\n        }\r\n\r\n        public SPTo" +
-                    "CoreContextT4(DbContextOptions<");
+            this.Write("\r\n        public ");
             
-            #line 26 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 21 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DestinationDbContext));
+            
+            #line default
+            #line hidden
+            this.Write("()\r\n        {\r\n        }\r\n\r\n        public ");
+            
+            #line 25 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DestinationDbContext));
+            
+            #line default
+            #line hidden
+            this.Write("(DbContextOptions<");
+            
+            #line 25 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SourceDbContext));
             
             #line default
@@ -85,21 +111,21 @@ namespace SPToCore.Model
                     "       protected override void OnModelCreating(ModelBuilder modelBuilder)\r\n     " +
                     "   {            \r\n            // No key            \r\n");
             
-            #line 34 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 33 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
     foreach (var sp in SpList){ if (sp.Results.Count > 0){
             
             #line default
             #line hidden
             this.Write("            modelBuilder.Query<");
             
-            #line 35 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 34 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("Result>().HasNoKey();\r\n");
             
-            #line 36 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 35 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
     }}
             
             #line default
@@ -107,181 +133,202 @@ namespace SPToCore.Model
             this.Write("            //Thanks Valecass!!!\r\n            base.OnModelCreating(modelBuilder);" +
                     "\r\n        }\r\n\r\n");
             
-            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 40 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var sp in SpList){ 
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.GetMethodDefinition()));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var p in sp.Params){ 
             
             #line default
             #line hidden
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((p.Order == "1" ? "" : "," )));
             
             #line default
             #line hidden
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((p.isOutput ? "ref " : "" )));
             
             #line default
             #line hidden
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
             
-            #line 42 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 41 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n");
             
-            #line 44 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 43 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 if (sp.Results.Count > 0){
             
             #line default
             #line hidden
             this.Write("            //Initialize Result \r\n            List<");
             
-            #line 46 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 45 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("Result> lst = new List<");
             
-            #line 46 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 45 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("Result>();\r\n");
             
-            #line 47 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 46 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write("            try\r\n            {\r\n");
             
-            #line 50 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 49 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 if (sp.Params.Count > 0) {
             
             #line default
             #line hidden
             this.Write("                // Parameters\r\n");
             
-            #line 52 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 51 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var p in sp.Params){ 
             
             #line default
             #line hidden
             this.Write("                SqlParameter p_");
             
-            #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 52 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
             this.Write(" = new SqlParameter(\"@");
             
-            #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 52 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 52 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
-            this.Write(".ToString() ?? (object)DBNull.Value);\r\n");
+            this.Write(" ?? (object)DBNull.Value);\r\n");
+            
+            #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+if (p.isOutput){
+            
+            #line default
+            #line hidden
+            this.Write("                p_");
             
             #line 54 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
+            
+            #line default
+            #line hidden
+            this.Write(".Direction = ParameterDirection.Output;\r\n");
+            
+            #line 55 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }
             
             #line default
             #line hidden
             
-            #line 54 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write("\r\n                // Processing \r\n                string sqlQuery = $@\"EXEC [");
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Schema));
             
             #line default
             #line hidden
             this.Write("].[");
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("] ");
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var p in sp.Params){ 
             
             #line default
             #line hidden
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((p.Order == "1" ? "" : ", " )));
             
             #line default
             #line hidden
             this.Write("@");
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((p.isOutput ? " OUTPUT" : "" )));
             
             #line default
             #line hidden
             
-            #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 60 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write("\";\r\n");
             
-            #line 58 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 if (sp.Results.Count > 0) {
             
             #line default
@@ -289,83 +336,118 @@ if (sp.Results.Count > 0) {
             this.Write("                \r\n                //Output Data\r\n                lst = await this" +
                     ".");
             
-            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 64 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write(".FromSqlRaw(sqlQuery ");
             
-            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 64 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var p in sp.Params){ 
             
             #line default
             #line hidden
             this.Write(", p_");
             
-            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 64 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 64 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write(").ToListAsync();");
             
-            #line 61 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 64 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
-            this.Write("\r\n");
             
-            #line 63 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
-if (sp.Params.Where(x=> x.isOutput).Count() > 0) {
-            
-            #line default
-            #line hidden
-            this.Write("                \r\n                //Output Params\r\n");
-            
-            #line 66 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
- foreach (var p in sp.Params.Where(x=> x.isOutput)){ 
+            #line 65 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+        else{
             
             #line default
             #line hidden
-            this.Write("                ");
+            this.Write("                //Execution\r\n                this.Database.ExecuteSqlRaw(sqlQuery" +
+                    " ");
             
-            #line 66 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 67 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+ foreach (var p in sp.Params){ 
+            
+            #line default
+            #line hidden
+            this.Write(", p_");
+            
+            #line 67 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
-            this.Write(" = (");
-            
-            #line 66 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.Type));
-            
-            #line default
-            #line hidden
-            this.Write(")p_");
-            
-            #line 66 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
-            
-            #line default
-            #line hidden
-            this.Write(".Value;\r\n");
+            this.Write(" ");
             
             #line 67 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
+            this.Write(");");
             
-            #line 68 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 67 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 69 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+if (sp.Params.Where(x=> x.isOutput).Count() > 0) {
+            
+            #line default
+            #line hidden
+            this.Write("                \r\n                //Output Params\r\n");
+            
+            #line 72 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+ foreach (var p in sp.Params.Where(x=> x.isOutput)){ 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 72 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
+            
+            #line default
+            #line hidden
+            this.Write(" = (");
+            
+            #line 72 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Type));
+            
+            #line default
+            #line hidden
+            this.Write(")p_");
+            
+            #line 72 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
+            
+            #line default
+            #line hidden
+            this.Write(".Value;\r\n");
+            
+            #line 73 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 74 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
@@ -373,70 +455,70 @@ if (sp.Params.Where(x=> x.isOutput).Count() > 0) {
             this.Write("            }\r\n            catch (Exception ex){\r\n                throw ex;\r\n    " +
                     "        }\r\n\r\n            //Return\r\n");
             
-            #line 75 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 81 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 if (sp.Results.Count > 0) {
             
             #line default
             #line hidden
             this.Write("            return lst;\r\n");
             
-            #line 77 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 83 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
 }
             
             #line default
             #line hidden
             this.Write("        }\r\n\r\n");
             
-            #line 80 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 86 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 82 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 88 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var sp in SpList){ if (sp.Results.Count > 0){
             
             #line default
             #line hidden
             this.Write("        public class ");
             
-            #line 83 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 89 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sp.Name));
             
             #line default
             #line hidden
             this.Write("Result\r\n        {\r\n");
             
-            #line 85 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 91 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  foreach (var r in sp.Results){
             
             #line default
             #line hidden
             this.Write("            public ");
             
-            #line 86 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 92 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(r.Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 86 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 92 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(r.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 87 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 93 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }
             
             #line default
             #line hidden
             this.Write("        }\r\n\r\n");
             
-            #line 90 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            #line 96 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }}
             
             #line default

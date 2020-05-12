@@ -9,21 +9,20 @@ using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SPToCore.Test;
 
-namespace SPToCore.Model
+namespace <#=Namespace#>.<#=SolutionDestinationFolder#>
 {
-    public partial class SPToCoreContextT4 : <#=SourceDbContext#>
+    public partial class <#=DestinationDbContext#> : <#=SourceDbContext#>
     {
 <# foreach (var sp in SpList){ if (sp.Results.Count > 0) {#>
         private DbSet<<#=sp.Name#>Result> <#=sp.Name#> { get; set; }
 <# }}#>
 
-        public SPToCoreContextT4()
+        public <#=DestinationDbContext#>()
         {
         }
 
-        public SPToCoreContextT4(DbContextOptions<<#=SourceDbContext#>> options)
+        public <#=DestinationDbContext#>(DbContextOptions<<#=SourceDbContext#>> options)
             : base(options)
         {
         }               
@@ -50,7 +49,11 @@ namespace SPToCore.Model
 <#if (sp.Params.Count > 0) {#>
                 // Parameters
 <# foreach (var p in sp.Params){ #>
-                SqlParameter p_<#=p.Param#> = new SqlParameter("@<#=p.Param#>", <#=p.Param#>.ToString() ?? (object)DBNull.Value);
+                SqlParameter p_<#=p.Param#> = new SqlParameter("@<#=p.Param#>", <#=p.Param#> ?? (object)DBNull.Value);
+<#if (p.isOutput){#>
+                p_<#=p.Param#>.Direction = ParameterDirection.Output;
+<#}#>
+
 <# }#><#}#>
 
                 // Processing 
@@ -59,6 +62,9 @@ namespace SPToCore.Model
                 
                 //Output Data
                 lst = await this.<#=sp.Name#>.FromSqlRaw(sqlQuery <# foreach (var p in sp.Params){ #>, p_<#=p.Param#> <#}#>).ToListAsync();<#}#>
+<#        else{#>
+                //Execution
+                this.Database.ExecuteSqlRaw(sqlQuery <# foreach (var p in sp.Params){ #>, p_<#=p.Param#> <#}#>);<#}#>
 
 <#if (sp.Params.Where(x=> x.isOutput).Count() > 0) {#>
                 
