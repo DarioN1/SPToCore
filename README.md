@@ -93,10 +93,10 @@ All the parameters are mandatories, you have to specify eachone of them:
 
 ## Compatibility
 
-SQL Server 2012 ( All versions )
-SQL Server 2014 ( All versions )
-SQL Server 2017 ( All versions )
-SQL Server 2019 ( All versions )
+* SQL Server 2012 ( All versions )
+* SQL Server 2014 ( All versions )
+* SQL Server 2017 ( All versions )
+* SQL Server 2019 ( All versions )
 
 ## Special Thanks
 
