@@ -148,7 +148,7 @@ namespace SPToCore
             File.WriteAllText(Path.Combine(P_OutPutPhysicalFolder, P_OutPutFilename), spToCoreT4Processed.TransformText());
 
             if (ExceptionList.Count > 0) {
-                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} EXCEPTION FOUND! Please check SPToCore_log.txt in '{P_OutPutPhysicalFolder}'");
+                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} EXCEPTIONS FOUND! Please check SPToCore_log.txt in '{P_OutPutPhysicalFolder}'");
                 WriteException();
             }
             
