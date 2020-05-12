@@ -19,6 +19,8 @@ Here you can find and example of a real case:
 ```
 SPToCore.exe scan -cnn "Data Source=DN1;Initial Catalog=myDB;Persist Security Info=True;User ID=myUser;Password=password;" -sch * -nsp SPToCoreTest -ctx EMGERPContext -sf Model -pf C:\Users\dario\Documents\github\SPToCore\SPToCoreTest\Model\ -f SPToCoreContext.cs
 ```
+If you have properly set the parameters to write the output file to dest solution you are ready to go, otherwise
+you can always write the file to a temp folder and add it manually to dest solution.
 
 ## Implementation
 
@@ -99,10 +101,16 @@ Special thanks to:
 
 and all the Kasuken Discord Community for the support!
 
+## Note
+
+This is my first shared project on GitHub, I coded it during COVID-19 lockdown working from home with my fiancee and my two years old son, you can figure out... 
+
+Thats not the best environment for codeing so please, be kind when you test and review the code. ;-)
+
+I have tested the scanner with 4 big database with 122, 250, 320 and 335 stored procedures, allone of the sp has been imported but
+this utility must be tested a little bit more.
 
 ## License
 
 MIT
-
-## Special Thanks
 
