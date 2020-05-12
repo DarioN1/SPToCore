@@ -93,9 +93,10 @@ All the parameters are mandatories, you have to specify eachone of them:
 
 Special thanks to:
 
-Valecass
-Mobius_One93
-Kasuken
+* Valecass
+* Mobius_One93
+* Kasuken
+
 and all the Kasuken Discord Community for the support!
 
 
