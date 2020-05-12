@@ -89,4 +89,19 @@ All the parameters are mandatories, you have to specify eachone of them:
 | `pfolder` | `pf` | Physical destination folder where the output file will be written |
 | `filename` | `f` | Output file name |
 
+## Special Thanks
+
+Special thanks to:
+
+Valecass
+Mobius_One93
+Kasuken
+and all the Kasuken Discord Community for the support!
+
+
+## License
+
+MIT
+
+## Special Thanks
 
