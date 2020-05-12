@@ -3,6 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Authors>Dario Tordin</Authors>
+    <Company>BlackBelts Consulting</Company>
+    <Description>SPToCore, a Stored Procedure Scaffolder for .netcore !!!</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="dist\" />
     <Folder Include="Output\" />
   </ItemGroup>
 
