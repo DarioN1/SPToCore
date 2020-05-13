@@ -85,6 +85,7 @@ namespace SPToCore
                         isOutput = (bool)par["is_Output"],
                         isNullable = (bool)par["is_nullable"],
                         Collation = (par["Collation"].GetType().Name == "DBNull" ? null : par["Collation"].ToString()),
+                        DbType = SP_GetDbType(par["Type"].ToString()),
 
                         sql_Param = (par["Parameter"].GetType().Name == "DBNull" ? null : par["Parameter"].ToString()),
                         sql_Type = (par["Type"].GetType().Name == "DBNull" ? null : par["Type"].ToString()),
@@ -96,6 +97,8 @@ namespace SPToCore
                         sql_isNullable = (par["is_nullable"].GetType().Name == "DBNull" ? null : par["is_nullable"].ToString()),
                         sql_Collation = (par["Collation"].GetType().Name == "DBNull" ? null : par["Collation"].ToString()),
                     };
+
+                    
 
                     pList.Add(_p);
                 }
@@ -123,7 +126,7 @@ namespace SPToCore
                         sql_isNullable = (res["is_nullable"].GetType().Name == "DBNull" ? null : res["is_nullable"].ToString()),
                         sql_Collation = (res["collation_name"].GetType().Name == "DBNull" ? null : res["collation_name"].ToString()),
 
-                    };
+                    };                    
 
                     rList.Add(_r); 
                 }
@@ -233,13 +236,13 @@ namespace SPToCore
                    !String.IsNullOrEmpty(f)
                 )
                 {
-                    Console.WriteLine(P_ConnectionString);
-                    Console.WriteLine(P_NameSpace);
-                    Console.WriteLine(P_Schema);
-                    Console.WriteLine(P_ContextSource);
-                    Console.WriteLine(P_OutPutSolutionFolder);
-                    Console.WriteLine(P_OutPutPhysicalFolder);
-                    Console.WriteLine(P_OutPutFilename);
+                    //Console.WriteLine(P_ConnectionString);
+                    //Console.WriteLine(P_NameSpace);
+                    //Console.WriteLine(P_Schema);
+                    //Console.WriteLine(P_ContextSource);
+                    //Console.WriteLine(P_OutPutSolutionFolder);
+                    //Console.WriteLine(P_OutPutPhysicalFolder);
+                    //Console.WriteLine(P_OutPutFilename);
 
                     SPToCoreScan();
 
@@ -308,6 +311,33 @@ namespace SPToCore
                 return "bool" + (isNullable ? "?" : "");
             else
                 return "WTF?!";                        
+
+        }
+
+        private static string SP_GetDbType(string type)
+        {
+            type = type.ToLower().Trim();            
+
+            if (type == "int")
+                return "Int32";
+            else if (type == "smallint")
+                return "Int16";
+            else if (type.IndexOf("decimal") > -1)
+                return "Decimal";
+            else if (type.IndexOf("nvarchar") > -1)
+                return "String";
+            else if (type.IndexOf("varchar") > -1)
+                return "String";
+            else if (type.IndexOf("datetimeoffset") > -1)
+                return "DateTime";
+            else if (type.IndexOf("datetime") > -1)
+                return "DateTime";
+            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime";
+            else if (type == "bit")
+                return "Boolean";
+            else
+                return "???";
 
         }
 

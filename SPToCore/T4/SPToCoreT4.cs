@@ -246,28 +246,49 @@ if (sp.Params.Count > 0) {
             
             #line default
             #line hidden
-            this.Write(" ?? (object)DBNull.Value);\r\n");
+            this.Write(" ?? (object)DBNull.Value);\r\n                p_");
             
             #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
-if (p.isOutput){
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
-            this.Write("                p_");
+            this.Write(".Direction = ParameterDirection.");
+            
+            #line 53 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture((p.isOutput ? "Output" : "Input")));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                p_");
             
             #line 54 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
             
             #line default
             #line hidden
-            this.Write(".Direction = ParameterDirection.Output;\r\n");
+            this.Write(".DbType = DbType.");
             
-            #line 55 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
-}
+            #line 54 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.DbType));
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write(";\r\n                p_");
+            
+            #line 55 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Param));
+            
+            #line default
+            #line hidden
+            this.Write(".Size = ");
+            
+            #line 55 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Length));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\n");
             
             #line 57 "C:\Users\dario\Documents\github\SPToCore\SPToCore\T4\SPToCoreT4.tt"
  }

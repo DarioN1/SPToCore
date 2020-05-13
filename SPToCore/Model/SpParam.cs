@@ -1,4 +1,6 @@
-﻿namespace SPToCore.Model
+﻿using System.Data;
+
+namespace SPToCore.Model
 {
     public class SpParam
     {
@@ -11,6 +13,7 @@
         public bool isOutput { get; set; }
         public bool isNullable { get; set; }        
         public string? Collation { get; set; }
+        public string DbType { get; set; }
 
         public string? sql_Param { get; set; }
         public string? sql_Type { get; set; }
@@ -21,5 +24,6 @@
         public string? sql_isOutput { get; set; }
         public string? sql_isNullable { get; set; }
         public string? sql_Collation { get; set; }
+        
     }
 }
