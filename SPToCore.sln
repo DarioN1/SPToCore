@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPToCore", "SPToCore\SPToCore.csproj", "{485D32DC-72E9-41E4-BCFA-C07C75474ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPToCoreTest", "SPToCoreTest\SPToCoreTest.csproj", "{B9F0E795-0FC5-45E3-999A-6607A569C731}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPToCoreTest", "SPToCoreTest\SPToCoreTest.csproj", "{B9F0E795-0FC5-45E3-999A-6607A569C731}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myStoredProcedureCalls", "myStoredProcedureCalls\myStoredProcedureCalls\myStoredProcedureCalls.csproj", "{63FB337D-2546-4ACF-A83E-030E55FC4195}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B9F0E795-0FC5-45E3-999A-6607A569C731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F0E795-0FC5-45E3-999A-6607A569C731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F0E795-0FC5-45E3-999A-6607A569C731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FB337D-2546-4ACF-A83E-030E55FC4195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FB337D-2546-4ACF-A83E-030E55FC4195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FB337D-2546-4ACF-A83E-030E55FC4195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FB337D-2546-4ACF-A83E-030E55FC4195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
