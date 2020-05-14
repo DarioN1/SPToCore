@@ -309,6 +309,8 @@ namespace SPToCore
                 return "decimal" + (isNullable ? "?" : "");
             else if (type == "bit")
                 return "bool" + (isNullable ? "?" : "");
+            else if (type == "uniqueidentifier")
+                return "Guid" + (isNullable ? "?" : "");
             else
                 return "WTF?!";                        
 
@@ -336,8 +338,10 @@ namespace SPToCore
                 return "DateTime";
             else if (type == "bit")
                 return "Boolean";
+            else if (type == "uniqueidentifier")
+                return "Guid";
             else
-                return "???";
+                return "WTF?!";
 
         }
 
