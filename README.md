@@ -76,6 +76,10 @@ public void Test2(){
   }
 }
 ```   
+### Example 3
+
+Check this link: https://www.c-sharpcorner.com/article/learn-about-stored-procedure-scaffolding-utillity-for-netcore3/
+
 ## Params
 
 All the parameters are mandatory, you have to specify each one of them:
