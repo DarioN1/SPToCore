@@ -114,8 +114,7 @@ This is my first shared project on GitHub, I coded it during COVID-19 lockdown w
 
 That's not the best environment for coding so please, be kind when you test and review the code. ;-)
 
-I have tested the scanner with 4 big databases with 122, 250, 320 and 335 stored procedures, allone of the sp has been imported but
-this utility must be tested a little bit more.
+I have tested the scanner with 4 big databases with 122, 250, 320 and 335 stored procedures and every stored procedure has been imported but this utility must be tested a little bit more.
 
 ## License
 
