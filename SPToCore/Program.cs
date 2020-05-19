@@ -104,11 +104,12 @@ namespace SPToCore
                 }
 
                 var rList = new List<SpResultElement>();
+                int rCounter = 0;
                 foreach (DataRow res in dt_SpResult.Rows){
 
                     var _r = new SpResultElement() {
 
-                        Name = res["name"].ToString(),
+                        Name = (string.IsNullOrEmpty(res["name"].ToString()) ? $"Col{rCounter}" : res["name"].ToString()),
                         Type = SP_GetType(res["system_type_name"].ToString(), (bool)res["is_nullable"]),
                         Length = (res["max_length"].GetType().Name == "DBNull" ? null : res["max_length"].ToString()),
                         Precision = (res["precision"].GetType().Name == "DBNull" ? null : res["precision"].ToString()),
@@ -125,8 +126,9 @@ namespace SPToCore
                         sql_Order = (res["column_ordinal"].GetType().Name == "DBNull" ? null : res["column_ordinal"].ToString()),
                         sql_isNullable = (res["is_nullable"].GetType().Name == "DBNull" ? null : res["is_nullable"].ToString()),
                         sql_Collation = (res["collation_name"].GetType().Name == "DBNull" ? null : res["collation_name"].ToString()),
-
-                    };                    
+                        
+                    };  
+                    
 
                     rList.Add(_r); 
                 }
@@ -300,6 +302,8 @@ namespace SPToCore
                 return "string";
             else if (type.IndexOf("varchar") > -1)
                 return "string";
+            else if (type.IndexOf("char") > -1)
+                return "string";
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTimeOffset" + (isNullable ? "?" : "");
             else if (type.IndexOf("datetime") > -1)
@@ -332,6 +336,8 @@ namespace SPToCore
             else if (type.IndexOf("nvarchar") > -1)
                 return "String";
             else if (type.IndexOf("varchar") > -1)
+                return "String";
+            else if (type.IndexOf("char") > -1)
                 return "String";
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTime";
