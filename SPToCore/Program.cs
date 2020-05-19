@@ -285,8 +285,7 @@ namespace SPToCore
         }
 
         private static string SP_GetType(string type,bool isNullable)
-        {
-            
+        {            
             type = type.ToLower().Trim();
 
             if (type == "int")
