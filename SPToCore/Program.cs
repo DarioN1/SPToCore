@@ -292,7 +292,9 @@ namespace SPToCore
             if (type == "int")
                 return "int" + (isNullable ? "?" : "");
             else if (type == "smallint")
-                return "int" + (isNullable ? "?" : "");            
+                return "int" + (isNullable ? "?" : "");
+            else if (type == "tinyint")
+                return "Byte" + (isNullable ? "?" : "");
             else if (type.IndexOf("decimal") > -1)
                 return "decimal" + (isNullable ? "?" : "");
             else if (type.IndexOf("nvarchar") > -1)
@@ -318,12 +320,14 @@ namespace SPToCore
 
         private static string SP_GetDbType(string type)
         {
-            type = type.ToLower().Trim();            
+            type = type.ToLower().Trim();
 
             if (type == "int")
                 return "Int32";
             else if (type == "smallint")
                 return "Int16";
+            else if (type == "tinyint")
+                return "Byte";
             else if (type.IndexOf("decimal") > -1)
                 return "Decimal";
             else if (type.IndexOf("nvarchar") > -1)
