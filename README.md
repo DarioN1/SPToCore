@@ -3,9 +3,9 @@
 This command line utility has been created to simplify the stored procedures management in
 new .netcore.
 
-It allows you to scaffold a Microsoft SqlServer database and getting a new context file with all the stored procedures methods.
+It allows you to scaffold a Microsoft SqlServer database and get a new context file with all the stored procedures methods.
 
-In few words it extends the current ef context by adding all the stored procedure methods and by mapping
+In few words it extends the current EF Context by adding all the stored procedure methods and by mapping
 all the parameters: you don't have to worry about passing params by generic object parameter.
 
 ## Installation
@@ -48,7 +48,7 @@ public void Test1(){
 
 ### Example 2
 
-Call a Stored procedure who initialize a new Material and get the new material id.
+Call a Stored procedure who initializes a new Material and get the new material id.
 In the example I will use a transaction, it works well also with them:
 
 ```c#
@@ -76,9 +76,13 @@ public void Test2(){
   }
 }
 ```   
+### Example 3
+
+Check this link: https://www.c-sharpcorner.com/article/learn-about-stored-procedure-scaffolding-utillity-for-netcore3/
+
 ## Params
 
-All the parameters are mandatories, you have to specify eachone of them:
+All the parameters are mandatory, you have to specify each one of them:
 
 
 | Parameter| ShortName | Description |
@@ -112,10 +116,9 @@ and all the Kasuken Discord Community for the support!
 
 This is my first shared project on GitHub, I coded it during COVID-19 lockdown working from home with my fiancee and my two years old son, you can figure out... 
 
-Thats not the best environment for codeing so please, be kind when you test and review the code. ;-)
+That's not the best environment for coding so please, be kind when you test and review the code. ;-)
 
-I have tested the scanner with 4 big database with 122, 250, 320 and 335 stored procedures, allone of the sp has been imported but
-this utility must be tested a little bit more.
+I have tested the scanner with 4 big databases with 122, 250, 320 and 335 stored procedures and every stored procedure has been imported but this utility must be tested a little bit more.
 
 ## License
 
