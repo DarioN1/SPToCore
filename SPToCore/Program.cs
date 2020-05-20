@@ -304,11 +304,13 @@ namespace SPToCore
                 return "string";
             else if (type.IndexOf("char") > -1)
                 return "string";
+            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime" + (isNullable ? "?" : "");
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTimeOffset" + (isNullable ? "?" : "");
             else if (type.IndexOf("datetime") > -1)
-                return "DateTime" + (isNullable ? "?" : "");
-            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime" + (isNullable ? "?" : "");            
+            else if (type.IndexOf("date") > -1)
                 return "DateTime" + (isNullable ? "?" : "");
             else if (type == "decimal")
                 return "decimal" + (isNullable ? "?" : "");
@@ -339,11 +341,13 @@ namespace SPToCore
                 return "String";
             else if (type.IndexOf("char") > -1)
                 return "String";
+            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime";
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTime";
             else if (type.IndexOf("datetime") > -1)
-                return "DateTime";
-            else if (type.IndexOf("smalldatetime") > -1)
+                return "DateTime";            
+            else if (type.IndexOf("date") > -1)
                 return "DateTime";
             else if (type == "bit")
                 return "Boolean";
