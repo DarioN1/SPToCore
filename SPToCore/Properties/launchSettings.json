@@ -1,8 +1,7 @@
 {
   "profiles": {
     "SPToCore": {
-      "commandName": "Project",
-      "commandLineArgs": "scan -cnn \"Data Source=.;Initial Catalog=EnterpriseConfigurator;Integrated Security=SSPI;\" -sch * -nsp SPToCoreTest -ctx EMGERPContext -sf Model -pf d:\\temp -f d:\\temp\\ECContext.cs"
+      "commandName": "Project"
     }
   }
 }
