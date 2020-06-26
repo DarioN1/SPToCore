@@ -10,6 +10,8 @@ namespace SPToCore.T4
         private string Namespace { get; set; }
         private string SolutionDestinationFolder { get; set; }
         private string DestinationDbContext { get; set; }
+        private string ProgramName { get { return System.AppDomain.CurrentDomain.FriendlyName; } }
+
 
         private string SourceDbContext { get; set; }
         public SPToCoreT4(List<Sp> _spList,
