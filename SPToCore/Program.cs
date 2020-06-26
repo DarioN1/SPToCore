@@ -292,6 +292,10 @@ namespace SPToCore
 
             if (type == "int")
                 return "int" + (isNullable ? "?" : "");
+            else if (type.Contains("numeric"))
+                return "decimal" + (isNullable ? "?" : "");
+            else if (type == "bigint")
+                return "Int64" + (isNullable ? "?" : "");
             else if (type == "smallint")
                 return "int" + (isNullable ? "?" : "");
             else if (type == "tinyint")
@@ -309,7 +313,7 @@ namespace SPToCore
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTimeOffset" + (isNullable ? "?" : "");
             else if (type.IndexOf("datetime") > -1)
-                return "DateTime" + (isNullable ? "?" : "");            
+                return "DateTime" + (isNullable ? "?" : "");
             else if (type.IndexOf("date") > -1)
                 return "DateTime" + (isNullable ? "?" : "");
             else if (type == "decimal")
@@ -319,8 +323,7 @@ namespace SPToCore
             else if (type == "uniqueidentifier")
                 return "Guid" + (isNullable ? "?" : "");
             else
-                return "WTF?!";                        
-
+                throw new UnknownDBTypeException(type);                        
         }
 
         private static string SP_GetDbType(string type)
@@ -329,6 +332,10 @@ namespace SPToCore
 
             if (type == "int")
                 return "Int32";
+            else if (type == "bigint")
+                return "Int64";
+            else if (type.Contains("numeric"))
+                return "Decimal";
             else if (type == "smallint")
                 return "Int16";
             else if (type == "tinyint")
@@ -354,8 +361,7 @@ namespace SPToCore
             else if (type == "uniqueidentifier")
                 return "Guid";
             else
-                return "WTF?!";
-
+                throw new UnknownDBTypeException(type);
         }
 
         private static DataTable Get_StoreProcedure_List()
