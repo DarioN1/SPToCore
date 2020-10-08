@@ -300,6 +300,8 @@ namespace SPToCore
                 return "int" + (isNullable ? "?" : "");
             else if (type == "tinyint")
                 return "Byte" + (isNullable ? "?" : "");
+            else if (type == "bigint")
+                return "Int64" + (isNullable ? "?" : "");
             else if (type.IndexOf("decimal") > -1)
                 return "decimal" + (isNullable ? "?" : "");
             else if (type.IndexOf("nvarchar") > -1)
@@ -322,6 +324,8 @@ namespace SPToCore
                 return "bool" + (isNullable ? "?" : "");
             else if (type == "uniqueidentifier")
                 return "Guid" + (isNullable ? "?" : "");
+            else if (type == "xml")
+                return "string";
             else
                 throw new UnknownDBTypeException(type);                        
         }
@@ -340,6 +344,8 @@ namespace SPToCore
                 return "Int16";
             else if (type == "tinyint")
                 return "Byte";
+            else if (type == "bigint")
+                return "Int64";
             else if (type.IndexOf("decimal") > -1)
                 return "Decimal";
             else if (type.IndexOf("nvarchar") > -1)
@@ -353,13 +359,15 @@ namespace SPToCore
             else if (type.IndexOf("datetimeoffset") > -1)
                 return "DateTime";
             else if (type.IndexOf("datetime") > -1)
-                return "DateTime";            
+                return "DateTime";
             else if (type.IndexOf("date") > -1)
                 return "DateTime";
             else if (type == "bit")
                 return "Boolean";
             else if (type == "uniqueidentifier")
                 return "Guid";
+            else if (type == "xml")
+                return "Xml";
             else
                 throw new UnknownDBTypeException(type);
         }
@@ -407,7 +415,7 @@ namespace SPToCore
                     string sql = $@"
                                 SELECT  
                                    'Parameter' = name,  
-                                   'Type'   = type_name(user_type_id),  
+                                   'Type'   = type_name(system_type_id),  
                                    'Length'   = CAST(max_length AS INT),  
                                    'Precision'   = CAST(case when type_name(system_type_id) = 'uniqueidentifier' 
                                               then precision  
