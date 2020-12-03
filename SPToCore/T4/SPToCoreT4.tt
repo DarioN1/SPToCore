@@ -36,7 +36,7 @@ namespace <#=Namespace#>.<#=SolutionDestinationFolder#>
         {            
             // No key            
 <#    foreach (var sp in SpList){ if (sp.Results.Count > 0){#>
-            modelBuilder.Query<<#=                sp.Name#>Result>().HasNoKey();
+            modelBuilder.Entity<<#=                sp.Name#>Result>().HasNoKey();
 <#    }}#>
             //Thanks Valecass!!!
             base.OnModelCreating(modelBuilder);
