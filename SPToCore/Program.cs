@@ -46,9 +46,9 @@ namespace SPToCore
 
         public static void SPToCoreScan() {
             
-            var dt_SpList = new DataTable();
-            var dt_SpParam = new DataTable();
-            var dt_SpResult = new DataTable();
+            DataTable dt_SpList;
+            DataTable dt_SpParam;
+            DataTable dt_SpResult;
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 1 - GET STORED PROCEDURE LIST");                       
             
