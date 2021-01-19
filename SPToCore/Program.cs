@@ -300,8 +300,6 @@ namespace SPToCore
                 return "int" + (isNullable ? "?" : "");
             else if (type == "tinyint")
                 return "Byte" + (isNullable ? "?" : "");
-            else if (type == "bigint")
-                return "Int64" + (isNullable ? "?" : "");
             else if (type.IndexOf("decimal") > -1)
                 return "decimal" + (isNullable ? "?" : "");
             else if (type.IndexOf("nvarchar") > -1)
@@ -344,8 +342,6 @@ namespace SPToCore
                 return "Int16";
             else if (type == "tinyint")
                 return "Byte";
-            else if (type == "bigint")
-                return "Int64";
             else if (type.IndexOf("decimal") > -1)
                 return "Decimal";
             else if (type.IndexOf("nvarchar") > -1)
