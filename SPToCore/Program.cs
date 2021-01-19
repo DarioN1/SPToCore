@@ -46,9 +46,9 @@ namespace SPToCore
 
         public static void SPToCoreScan() {
             
-            var dt_SpList = new DataTable();
-            var dt_SpParam = new DataTable();
-            var dt_SpResult = new DataTable();
+            DataTable dt_SpList;
+            DataTable dt_SpParam;
+            DataTable dt_SpResult;
 
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH':'mm':'ss")} STEP 1 - GET STORED PROCEDURE LIST");                       
             
@@ -300,8 +300,6 @@ namespace SPToCore
                 return "int" + (isNullable ? "?" : "");
             else if (type == "tinyint")
                 return "Byte" + (isNullable ? "?" : "");
-            else if (type == "bigint")
-                return "Int64" + (isNullable ? "?" : "");
             else if (type.IndexOf("decimal") > -1)
                 return "decimal" + (isNullable ? "?" : "");
             else if (type.IndexOf("nvarchar") > -1)
@@ -344,8 +342,6 @@ namespace SPToCore
                 return "Int16";
             else if (type == "tinyint")
                 return "Byte";
-            else if (type == "bigint")
-                return "Int64";
             else if (type.IndexOf("decimal") > -1)
                 return "Decimal";
             else if (type.IndexOf("nvarchar") > -1)
