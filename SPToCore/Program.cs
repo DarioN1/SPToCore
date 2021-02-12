@@ -297,7 +297,7 @@ namespace SPToCore
             else if (type == "bigint")
                 return "Int64" + (isNullable ? "?" : "");
             else if (type == "smallint")
-                return "int" + (isNullable ? "?" : "");
+                return "short" + (isNullable ? "?" : "");
             else if (type == "tinyint")
                 return "Byte" + (isNullable ? "?" : "");
             else if (type == "bigint")
